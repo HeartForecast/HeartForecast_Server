@@ -1,21 +1,21 @@
 name: "🔔 새로운 기능"
 description: "새로운 기능에 대한 이슈를 작성하세요!"
-title: "[새기능] "
+title: "[새기능] "  # 큰따옴표로 감싸야 YAML 오류 방지
 labels:
-  - 새기능
+  - "새기능"
 body:
   - type: input
     attributes:
-      label: 🔔 개요
-      description: 새로운 기능에 대한 간단한 설명을 작성해 주세요.
-      placeholder: 예: 회원가입 기능 추가
+      label: "🔔 개요"
+      description: "새로운 기능에 대한 간단한 설명을 작성해 주세요."
+      placeholder: "예: 회원가입 기능 추가"
     validations:
       required: true
 
   - type: textarea
     attributes:
-      label: ✅ 해야 할 일
-      description: 구현해야 할 항목을 체크리스트 형식으로 작성해 주세요.
+      label: "✅ 해야 할 일"
+      description: "구현해야 할 항목을 체크리스트 형식으로 작성해 주세요."
       placeholder: |
         - [ ] 회원가입 API 구현
         - [ ] 회원가입 API 테스트 코드 작성
@@ -25,8 +25,8 @@ body:
 
   - type: textarea
     attributes:
-      label: 🙏🏻 요구사항
-      description: 기능 개발 시 유의해야 할 요구사항이나 제약 조건을 작성해 주세요.
+      label: "🙏🏻 요구사항"
+      description: "기능 개발 시 유의해야 할 요구사항이나 제약 조건을 작성해 주세요."
       placeholder: |
         - [ ] 하나의 전화번호로 한 번만 가입할 수 있다.
         - [ ] 전화번호는 반드시 11글자여야 한다.
@@ -35,7 +35,7 @@ body:
 
   - type: textarea
     attributes:
-      label: 🙋🏻 덧붙일 말
-      description: 그 외 하고 싶은 말이 있다면 자유롭게 작성해 주세요.
+      label: "🙋🏻 덧붙일 말"
+      description: "그 외 하고 싶은 말이 있다면 자유롭게 작성해 주세요."
     validations:
       required: false
