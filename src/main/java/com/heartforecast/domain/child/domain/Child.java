@@ -46,4 +46,8 @@ public class Child {
     this.point = 0;
     this.inviteCode = inviteCode;
   }
+
+  public void updateHealthInfo(String healthInfo) {
+    this.healthInfo = healthInfo;
+  }
 }
