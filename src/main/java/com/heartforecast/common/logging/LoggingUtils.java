@@ -9,27 +9,27 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 public class LoggingUtils {
     public static void warn(HeartForecastException exception) {
         String message = getExceptionMessage(exception.getMessage());
-        log.warn(message + "\n \t {}", exception);
+      log.warn("{}\n \t {}", message, exception);
     }
 
     public static void warn(HeartForecastSecurityException exception) {
         String message = getExceptionMessage(exception.getMessage());
-        log.warn(message + "\n \t {}", exception);
+      log.warn("{}\n \t {}", message, exception);
     }
 
     public static void warn(MethodArgumentTypeMismatchException exception) {
         String message = getExceptionMessage(exception.getMessage());
-        log.warn(message + "\n \t {}", exception);
+      log.warn("{}\n \t {}", message, exception);
     }
 
     public static void warn(IllegalArgumentException exception) {
         String message = getExceptionMessage(exception.getMessage());
-        log.warn(message + "\n \t {}", exception);
+      log.warn("{}\n \t {}", message, exception);
     }
 
     public static void warn(NullPointerException exception) {
         String message = getExceptionMessage(exception.getMessage());
-        log.warn(message + "\n \t {}", exception);
+      log.warn("{}\n \t {}", message, exception);
     }
 
     private static String getExceptionMessage(String message) {
@@ -41,6 +41,6 @@ public class LoggingUtils {
 
     public static void error(RuntimeException exception) {
         String message = getExceptionMessage(exception.getMessage());
-        log.error(message + "\n \t {}", exception);
+      log.error("{}\n \t {}", message, exception);
     }
 }
