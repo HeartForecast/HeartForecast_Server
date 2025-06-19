@@ -1,5 +1,6 @@
 package com.heartforecast.domain.user.domain;
 
+import com.heartforecast.domain.user.domain.value.Role;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -24,18 +25,46 @@ public class Users {
 
   private String password;
 
-  private String name;
+  private String username;
 
   private String type;
+
+  @Enumerated(EnumType.STRING)
+  private Role role;
 
   @CreatedDate
   private LocalDateTime createdAt;
 
-  @Builder
-  Users(String email, String password, String name, String type) {
+  @Builder(builderMethodName = "normalUserBuilder")
+  public Users(String username, String password, String email, String type, Role role) {
+    this.username = username;
+    this.role = role;
+    this.type = type;
     this.email = email;
     this.password = password;
-    this.name = name;
+  }
+
+  @Builder(builderMethodName = "socialUserBuilder")
+  public Users(String email, String username, Role role, String type) {
+    this.email = email;
+    this.username = username;
+    this.role = role;
     this.type = type;
+  }
+
+  @Builder(builderMethodName = "jwtUserBuilder")
+  public Users(String email, String password, Role role) {
+    this.email = email;
+    this.password = password;
+    this.role = role;
+  }
+
+  public void updateSocial(String email, String type) {
+    this.email = email;
+    this.type = type;
+  }
+
+  public void updateRole(Role role) {
+    this.role = role;
   }
 }
