@@ -1,8 +1,8 @@
 package com.heartforecast.domain.child.service;
 
 import com.heartforecast.domain.child.domain.Child;
-import com.heartforecast.domain.childRelation.presentation.dto.request.ChildCreateRequest;
-import com.heartforecast.domain.childRelation.presentation.dto.request.ChildUpdateHealthRequest;
+import com.heartforecast.domain.child.presentation.dto.request.ChildCreateRequest;
+import com.heartforecast.domain.child.presentation.dto.request.ChildUpdateHealthRequest;
 import com.heartforecast.domain.child.service.implementation.ChildCreator;
 import com.heartforecast.domain.child.service.implementation.ChildDeleter;
 import com.heartforecast.domain.child.service.implementation.ChildReader;
