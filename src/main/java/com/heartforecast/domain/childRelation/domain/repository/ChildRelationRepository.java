@@ -11,7 +11,6 @@ import java.util.Optional;
 
 @Repository
 public interface ChildRelationRepository extends JpaRepository<ChildRelation, Long> {
-  boolean existsByUserAndChild(Users user, Child child);
   Optional<ChildRelation> findByUserAndChild(Users user, Child child);
   List<ChildRelation> findByUser(Users user);
 }
