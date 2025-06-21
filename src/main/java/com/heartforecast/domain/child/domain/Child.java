@@ -2,6 +2,7 @@ package com.heartforecast.domain.child.domain;
 
 import com.heartforecast.domain.child.domain.value.Gender;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -19,15 +20,21 @@ public class Child {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @NotNull
   private String username;
+
+  @NotNull
 
   private LocalDate birthdate;
 
+  @NotNull
   @Enumerated(EnumType.STRING)
   private Gender gender;
 
+  @NotNull
   private String healthInfo;
 
+  @NotNull
   private Integer point;
 
   @Column(unique = true)
