@@ -7,6 +7,7 @@ import com.heartforecast.domain.child.service.QueryChildService;
 import com.heartforecast.domain.childRelation.domain.ChildRelation;
 import com.heartforecast.domain.childRelation.presentation.dto.request.ChildRelationUpdateRequest;
 import com.heartforecast.domain.childRelation.service.implementation.ChildRelationCreator;
+import com.heartforecast.domain.childRelation.service.implementation.ChildRelationDeleter;
 import com.heartforecast.domain.childRelation.service.implementation.ChildRelationReader;
 import com.heartforecast.domain.childRelation.service.implementation.ChildRelationUpdater;
 import com.heartforecast.domain.user.domain.Users;
@@ -23,6 +24,8 @@ public class CommandChildRelationService {
   private final ChildRelationCreator childRelationCreator;
   private final ChildRelationReader childRelationReader;
   private final ChildRelationUpdater childRelationUpdater;
+  private final ChildRelationDeleter childRelationDeleter;
+  private final QueryChildRelationService queryChildRelationService;
   private final CommandChildService commandChildService;
   private final QueryChildService queryChildService;
   private final QueryUserService queryUserService;
@@ -46,5 +49,10 @@ public class CommandChildRelationService {
 
     ChildRelation childRelation = childRelationReader.findByUserAndChild(child, user);
     childRelationUpdater.update(childRelation, request.role());
+  }
+
+  public void deleteChildRelation(Long childId, Long userId) {
+    ChildRelation childRelation = queryChildRelationService.readOne(childId, userId);
+    childRelationDeleter.delete(childRelation);
   }
 }
