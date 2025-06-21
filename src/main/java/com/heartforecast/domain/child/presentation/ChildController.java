@@ -24,6 +24,6 @@ public class ChildController {
 
   @PutMapping
   public void updateChild(@RequestBody ChildUpdateRequest request) {
-    commandChildService.update(request);
+    commandChildService.update(request, getMemberId());
   }
 }
