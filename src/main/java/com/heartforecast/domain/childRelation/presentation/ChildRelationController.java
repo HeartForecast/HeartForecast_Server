@@ -3,7 +3,8 @@ package com.heartforecast.domain.childRelation.presentation;
 import com.heartforecast.domain.child.presentation.dto.request.ChildCreateRequest;
 import com.heartforecast.domain.child.presentation.dto.response.ChildResponse;
 import com.heartforecast.domain.childRelation.domain.ChildRelation;
-import com.heartforecast.domain.childRelation.presentation.dto.ChildRelationResponse;
+import com.heartforecast.domain.childRelation.presentation.dto.request.ChildRelationUpdateRequest;
+import com.heartforecast.domain.childRelation.presentation.dto.response.ChildRelationResponse;
 import com.heartforecast.domain.childRelation.service.CommandChildRelationService;
 import com.heartforecast.domain.childRelation.service.QueryChildRelationService;
 import lombok.RequiredArgsConstructor;
@@ -44,5 +45,10 @@ public class ChildRelationController {
             relation.getRole()
         ))
         .collect(toList());
+  }
+
+  @PutMapping
+  public void updateChildRelation(@RequestBody ChildRelationUpdateRequest request) {
+    commandChildRelationService.updateChildRelation(request, getMemberId());
   }
 }
