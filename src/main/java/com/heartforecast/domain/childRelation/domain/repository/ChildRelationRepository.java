@@ -13,4 +13,5 @@ import java.util.Optional;
 public interface ChildRelationRepository extends JpaRepository<ChildRelation, Long> {
   Optional<ChildRelation> findByUserAndChild(Users user, Child child);
   List<ChildRelation> findByUser(Users user);
+  void deleteAllByChild(Child child);
 }
