@@ -1,24 +1,48 @@
 package com.heartforecast.domain.childRelation.presentation;
 
 import com.heartforecast.domain.child.presentation.dto.request.ChildCreateRequest;
+import com.heartforecast.domain.child.presentation.dto.response.ChildResponse;
+import com.heartforecast.domain.childRelation.domain.ChildRelation;
+import com.heartforecast.domain.childRelation.presentation.dto.ChildRelationResponse;
 import com.heartforecast.domain.childRelation.service.CommandChildRelationService;
+import com.heartforecast.domain.childRelation.service.QueryChildRelationService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 import static com.heartforecast.common.jwt.util.AuthenticationUtil.getMemberId;
+import static java.util.stream.Collectors.toList;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/child")
 public class ChildRelationController {
 
+  private final QueryChildRelationService queryChildRelationService;
   private final CommandChildRelationService commandChildRelationService;
 
   @PostMapping
   public void createChild(@RequestBody ChildCreateRequest request) {
     commandChildRelationService.createChildRelation(request, getMemberId());
+  }
+
+  @GetMapping("/{child-id}")
+  public ChildRelationResponse getChildRelation(@PathVariable("child-id") Long childId) {
+    ChildRelation relation = queryChildRelationService.readOne(childId, getMemberId());
+    return ChildRelationResponse.of(
+        ChildResponse.from(relation.getChild()),
+        relation.getRole()
+    );
+  }
+
+  @GetMapping
+  public List<ChildRelationResponse> getChildRelations() {
+    return queryChildRelationService.readAll(getMemberId()).stream()
+        .map(relation -> ChildRelationResponse.of(
+            ChildResponse.from(relation.getChild()),
+            relation.getRole()
+        ))
+        .collect(toList());
   }
 }
