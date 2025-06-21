@@ -1,4 +1,4 @@
-package com.heartforecast.domain.childRelation.presentation.dto.response;
+package com.heartforecast.domain.child.presentation.dto.response;
 
 import com.heartforecast.domain.child.domain.Child;
 import com.heartforecast.domain.child.domain.value.Gender;
