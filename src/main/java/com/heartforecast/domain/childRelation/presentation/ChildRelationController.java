@@ -20,8 +20,8 @@ import static java.util.stream.Collectors.toList;
 @RequestMapping("/api/child")
 public class ChildRelationController {
 
-  private final QueryChildRelationService queryChildRelationService;
   private final CommandChildRelationService commandChildRelationService;
+  private final QueryChildRelationService queryChildRelationService;
 
   @PostMapping
   public void createChild(@RequestBody ChildCreateRequest request) {
@@ -50,5 +50,10 @@ public class ChildRelationController {
   @PutMapping
   public void updateChildRelation(@RequestBody ChildRelationUpdateRequest request) {
     commandChildRelationService.updateChildRelation(request, getMemberId());
+  }
+
+  @DeleteMapping("/{child-id}")
+  public void deleteChildRelation(@PathVariable("child-id") Long childId) {
+    commandChildRelationService.deleteChildRelation(childId, getMemberId());
   }
 }
