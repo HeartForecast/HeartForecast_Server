@@ -54,7 +54,14 @@ public class Child {
     this.inviteCode = inviteCode;
   }
 
-  public void updateHealthInfo(String healthInfo) {
+  public void update(String username, LocalDate birthdate, Gender gender, String healthInfo) {
+    this.username = username;
+    this.birthdate = birthdate;
+    this.gender = gender;
     this.healthInfo = healthInfo;
+  }
+
+  public void updatePoint(Integer point) {
+    this.point = point;
   }
 }
