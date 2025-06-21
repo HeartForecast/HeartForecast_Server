@@ -43,11 +43,11 @@ public class ChildRelationController {
 
   @PutMapping
   public void updateChildRelation(@RequestBody ChildRelationUpdateRequest request) {
-    commandChildRelationService.updateChildRelation(request, getMemberId());
+    commandChildRelationService.update(request, getMemberId());
   }
 
   @DeleteMapping("/{child-id}")
   public void deleteChildRelation(@PathVariable("child-id") Long childId) {
-    commandChildRelationService.deleteChildRelation(childId, getMemberId());
+    commandChildRelationService.delete(childId, getMemberId());
   }
 }
