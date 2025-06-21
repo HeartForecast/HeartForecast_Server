@@ -8,6 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface ChildRepository extends JpaRepository<Child, Long> {
-  boolean existsByInviteCode(String inviteCode);
   Optional<Child> findByInviteCode(String inviteCode);
 }
