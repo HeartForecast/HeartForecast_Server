@@ -40,12 +40,14 @@ public class CommandChildRelationService {
   }
 
   public void update(ChildRelationUpdateRequest request, Long userId) {
-    ChildRelation childRelation = queryChildRelationService.readOne(request.childId(), userId);
-    childRelationUpdater.update(childRelation, request.role());
+    childRelationUpdater.update(queryChildRelationService.readOne(request.childId(), userId), request.role());
   }
 
   public void delete(Long childId, Long userId) {
-    ChildRelation childRelation = queryChildRelationService.readOne(childId, userId);
-    childRelationDeleter.delete(childRelation);
+    childRelationDeleter.delete(queryChildRelationService.readOne(childId, userId));
+  }
+
+  public void deleteAll(Long childId, Long userId) {
+    childRelationDeleter.deleteAll(queryChildRelationService.readOne(childId, userId).getChild());
   }
 }
