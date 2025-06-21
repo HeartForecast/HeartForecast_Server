@@ -38,8 +38,7 @@ public class CommandChildService {
     childRelation.getChild().update(request.username(), request.birthdate(), request.gender(), request.healthInfo());
   }
 
-  public void delete(Long id) {
-    Child child = queryChildService.readOne(id);
-    childDeleter.delete(child);
+  public void delete(Long childId) {
+    childDeleter.delete(queryChildService.readOne(childId));
   }
 }
