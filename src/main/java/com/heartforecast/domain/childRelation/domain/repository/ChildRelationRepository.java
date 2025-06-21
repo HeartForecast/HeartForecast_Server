@@ -14,4 +14,5 @@ public interface ChildRelationRepository extends JpaRepository<ChildRelation, Lo
   Optional<ChildRelation> findByUserAndChild(Users user, Child child);
   List<ChildRelation> findByUser(Users user);
   void deleteAllByChild(Child child);
+  boolean existsByChildAndUser(Child child, Users user);
 }
