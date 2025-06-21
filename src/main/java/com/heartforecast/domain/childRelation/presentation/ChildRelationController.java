@@ -1,6 +1,5 @@
 package com.heartforecast.domain.childRelation.presentation;
 
-import com.heartforecast.domain.child.presentation.dto.request.ChildCreateRequest;
 import com.heartforecast.domain.child.presentation.dto.response.ChildResponse;
 import com.heartforecast.domain.childRelation.domain.ChildRelation;
 import com.heartforecast.domain.childRelation.presentation.dto.request.ChildRelationUpdateRequest;
@@ -17,16 +16,11 @@ import static java.util.stream.Collectors.toList;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/child")
+@RequestMapping("/api/childRelation")
 public class ChildRelationController {
 
   private final CommandChildRelationService commandChildRelationService;
   private final QueryChildRelationService queryChildRelationService;
-
-  @PostMapping
-  public void createChild(@RequestBody ChildCreateRequest request) {
-    commandChildRelationService.createChildRelation(request, getMemberId());
-  }
 
   @GetMapping("/{child-id}")
   public ChildRelationResponse getChildRelation(@PathVariable("child-id") Long childId) {
