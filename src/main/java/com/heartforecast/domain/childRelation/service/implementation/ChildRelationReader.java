@@ -3,7 +3,7 @@ package com.heartforecast.domain.childRelation.service.implementation;
 import com.heartforecast.domain.child.domain.Child;
 import com.heartforecast.domain.childRelation.domain.ChildRelation;
 import com.heartforecast.domain.childRelation.domain.repository.ChildRelationRepository;
-import com.heartforecast.domain.childRelation.exception.ChildRelationFoundException;
+import com.heartforecast.domain.childRelation.exception.ChildRelationNotFoundException;
 import com.heartforecast.domain.user.domain.Users;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,7 @@ public class ChildRelationReader {
 
   public ChildRelation findByUserAndChild(Child child, Users user) {
     return childRelationRepository.findByUserAndChild(user, child)
-        .orElseThrow(ChildRelationFoundException::new);
+        .orElseThrow(ChildRelationNotFoundException::new);
   }
 
   public List<ChildRelation> findByUser(Users user) {
