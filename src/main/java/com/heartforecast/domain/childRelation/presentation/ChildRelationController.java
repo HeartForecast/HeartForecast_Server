@@ -16,7 +16,7 @@ import static java.util.stream.Collectors.toList;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/childRelation")
+@RequestMapping("/childRelation")
 public class ChildRelationController {
 
   private final CommandChildRelationService commandChildRelationService;
