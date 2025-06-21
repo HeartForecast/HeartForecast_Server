@@ -5,6 +5,8 @@ import com.heartforecast.domain.child.presentation.dto.request.ChildCreateReques
 import com.heartforecast.domain.child.presentation.dto.request.ChildUpdateRequest;
 import com.heartforecast.domain.child.service.implementation.ChildCreator;
 import com.heartforecast.domain.child.service.implementation.ChildDeleter;
+import com.heartforecast.domain.childRelation.domain.ChildRelation;
+import com.heartforecast.domain.childRelation.service.QueryChildRelationService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,7 @@ public class CommandChildService {
   private final ChildCreator childCreator;
   private final ChildDeleter childDeleter;
   private final QueryChildService queryChildService;
+  private final QueryChildRelationService queryChildRelationService;
 
   public Child create(ChildCreateRequest request) {
     Child child = Child.builder()
@@ -30,9 +33,9 @@ public class CommandChildService {
     return childCreator.create(child);
   }
 
-  public void update(ChildUpdateRequest request) {
-    Child child = queryChildService.readOne(request.childId());
-    child.update(request.username(), request.birthdate(), request.gender(), request.healthInfo());
+  public void update(ChildUpdateRequest request, Long userId) {
+    ChildRelation childRelation = queryChildRelationService.readOne(request.childId(), userId);
+    childRelation.getChild().update(request.username(), request.birthdate(), request.gender(), request.healthInfo());
   }
 
   public void delete(Long id) {
