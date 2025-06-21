@@ -3,8 +3,12 @@ package com.heartforecast.domain.childRelation.service;
 import com.heartforecast.domain.child.domain.Child;
 import com.heartforecast.domain.child.presentation.dto.request.ChildCreateRequest;
 import com.heartforecast.domain.child.service.CommandChildService;
+import com.heartforecast.domain.child.service.QueryChildService;
 import com.heartforecast.domain.childRelation.domain.ChildRelation;
+import com.heartforecast.domain.childRelation.presentation.dto.request.ChildRelationUpdateRequest;
 import com.heartforecast.domain.childRelation.service.implementation.ChildRelationCreator;
+import com.heartforecast.domain.childRelation.service.implementation.ChildRelationReader;
+import com.heartforecast.domain.childRelation.service.implementation.ChildRelationUpdater;
 import com.heartforecast.domain.user.domain.Users;
 import com.heartforecast.domain.user.service.QueryUserService;
 import lombok.RequiredArgsConstructor;
@@ -17,13 +21,16 @@ import org.springframework.transaction.annotation.Transactional;
 public class CommandChildRelationService {
 
   private final ChildRelationCreator childRelationCreator;
+  private final ChildRelationReader childRelationReader;
+  private final ChildRelationUpdater childRelationUpdater;
   private final CommandChildService commandChildService;
+  private final QueryChildService queryChildService;
   private final QueryUserService queryUserService;
 
 
   public void createChildRelation(ChildCreateRequest request, Long userId) {
     Child child = commandChildService.create(request);
-    Users user = queryUserService.findOne(userId);
+    Users user = queryUserService.readOne(userId);
 
     ChildRelation childRelation = ChildRelation.builder()
         .child(child)
@@ -31,5 +38,13 @@ public class CommandChildRelationService {
         .role(request.role())
         .build();
     childRelationCreator.create(childRelation);
+  }
+
+  public void updateChildRelation(ChildRelationUpdateRequest request, Long userId) {
+    Child child = queryChildService.readOne(request.childId());
+    Users user = queryUserService.readOne(userId);
+
+    ChildRelation childRelation = childRelationReader.findByUserAndChild(child, user);
+    childRelationUpdater.update(childRelation, request.role());
   }
 }
