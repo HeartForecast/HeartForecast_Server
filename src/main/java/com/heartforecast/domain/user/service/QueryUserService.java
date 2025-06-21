@@ -13,7 +13,7 @@ public class QueryUserService {
 
   private final UserReader userReader;
 
-  public Users findOne(Long id) {
+  public Users readOne(Long id) {
     return userReader.findById(id);
   }
 }
