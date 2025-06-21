@@ -26,4 +26,10 @@ public class ChildController {
   public void updateChild(@RequestBody ChildUpdateRequest request) {
     commandChildService.update(request, getMemberId());
   }
+
+  @DeleteMapping("/{child-id}")
+  public void deleteChild(@PathVariable(name = "child-id") Long childId) {
+    commandChildRelationService.deleteAll(childId, getMemberId());
+    commandChildService.delete(childId);
+  }
 }
