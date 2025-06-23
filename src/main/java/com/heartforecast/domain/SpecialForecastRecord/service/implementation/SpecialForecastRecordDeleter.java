@@ -2,6 +2,7 @@ package com.heartforecast.domain.SpecialForecastRecord.service.implementation;
 
 import com.heartforecast.domain.SpecialForecastRecord.domain.SpecialForecastRecord;
 import com.heartforecast.domain.SpecialForecastRecord.domain.repository.SpecialForecastRecordRepository;
+import com.heartforecast.domain.specialForecast.domain.SpecialForecast;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,5 +14,9 @@ public class SpecialForecastRecordDeleter {
 
   public void delete(SpecialForecastRecord specialForecastRecord) {
     specialForecastRecordRepository.delete(specialForecastRecord);
+  }
+
+  public void deleteBySpecialForecast(SpecialForecast specialForecast) {
+    specialForecastRecordRepository.deleteBySpecialForecast(specialForecast);
   }
 }
