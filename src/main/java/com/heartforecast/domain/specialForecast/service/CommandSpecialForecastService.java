@@ -61,10 +61,8 @@ public class CommandSpecialForecastService {
   }
 
   public void delete(Long specialForecastId, Long childId) {
-    SpecialForecast specialForecast = querySpecialForecastService.readOne(specialForecastId, childId);
-
     commandSpecialForecastRecordService.deleteBySpecialForecast(specialForecastId, childId);
-    specialForecastDeleter.delete(specialForecast);
+    specialForecastDeleter.delete(querySpecialForecastService.readOne(specialForecastId, childId));
   }
 
   public void deleteByEvent(Long eventId, Long userId) {
