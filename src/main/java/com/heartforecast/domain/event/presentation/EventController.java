@@ -30,8 +30,9 @@ public class EventController {
   public EventResponse getEvent(
       @PathVariable("child-id") Long childId,
       @PathVariable("event-id") Long eventId) {
-    Event event = queryEventService.readOne(eventId, getMemberId());
+    Event event = queryEventService.findOneByUser(eventId, getMemberId());
     return EventResponse.from(
+        event.getId(),
         childId,
         event.getDate(),
         event.getTitle(),
@@ -44,6 +45,7 @@ public class EventController {
     List<Event> events = queryEventService.readAll(childId, getMemberId());
     return events.stream()
         .map(event -> EventResponse.from(
+            event.getId(),
             event.getChild().getId(),
             event.getDate(),
             event.getTitle(),
