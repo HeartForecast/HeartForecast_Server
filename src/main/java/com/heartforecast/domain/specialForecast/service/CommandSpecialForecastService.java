@@ -55,6 +55,10 @@ public class CommandSpecialForecastService {
   }
 
   public void delete(Long specialForecastId, Long childId) {
-    specialForecastDeleter.delete(querySpecialForecastService.readOne(specialForecastId, childId));
+    SpecialForecast specialForecast = querySpecialForecastService.readOne(specialForecastId, childId);
+
+    // 만약 특보 기록 존재시 삭제 로직
+
+    specialForecastDeleter.delete(specialForecast);
   }
 }
