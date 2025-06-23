@@ -7,6 +7,8 @@ import com.heartforecast.domain.specialForecast.service.QuerySpecialForecastServ
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/specialForecasts")
@@ -25,5 +27,12 @@ public class SpecialForecastController {
       @PathVariable("child-id") Long childId,
       @PathVariable("specialForecast-id") Long specialForecastId) {
     return SpecialForecastResponse.from(querySpecialForecastService.readOne(specialForecastId, childId));
+  }
+
+  @GetMapping("/{child-id}")
+  public List<SpecialForecastResponse> getSpecialForecasts(@PathVariable("child-id") Long childId) {
+    return querySpecialForecastService.readAll(childId).stream()
+        .map(SpecialForecastResponse::from)
+        .toList();
   }
 }
