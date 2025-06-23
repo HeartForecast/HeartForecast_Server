@@ -28,7 +28,7 @@ public class ChildController {
   }
 
   @DeleteMapping("/{child-id}")
-  public void deleteChild(@PathVariable(name = "child-id") Long childId) {
+  public void deleteChild(@PathVariable("child-id") Long childId) {
     commandChildRelationService.deleteAll(childId, getMemberId());
     commandChildService.delete(childId);
   }

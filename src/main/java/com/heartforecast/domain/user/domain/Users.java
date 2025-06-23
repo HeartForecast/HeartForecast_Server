@@ -2,6 +2,7 @@ package com.heartforecast.domain.user.domain;
 
 import com.heartforecast.domain.user.domain.value.Role;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,14 +22,18 @@ public class Users {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @NotNull
   private String email;
 
   private String password;
 
+  @NotNull
   private String username;
 
+  @NotNull
   private String type;
 
+  @NotNull
   @Enumerated(EnumType.STRING)
   private Role role;
 
