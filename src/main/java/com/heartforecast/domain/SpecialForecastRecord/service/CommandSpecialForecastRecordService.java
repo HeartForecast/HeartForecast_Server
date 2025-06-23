@@ -54,4 +54,8 @@ public class CommandSpecialForecastRecordService {
   public void delete(Long specialForecastRecordId, Long childId) {
     specialForecastRecordDeleter.delete(querySpecialForecastRecordService.readOne(specialForecastRecordId, childId));
   }
+
+  public void deleteBySpecialForecast(Long specialForecastId, Long childId) {
+    specialForecastRecordDeleter.deleteBySpecialForecast(querySpecialForecastService.readOne(specialForecastId, childId));
+  }
 }
