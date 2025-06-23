@@ -49,6 +49,9 @@ public class CommandEventService {
   }
 
   public void delete(Long eventId, Long userId) {
+
+    //특보 구현시 생성된 특보 삭제 로직 추가 예정
+
     eventDeleter.delete(queryEventService.findOneByUser(eventId, userId));
   }
 }
