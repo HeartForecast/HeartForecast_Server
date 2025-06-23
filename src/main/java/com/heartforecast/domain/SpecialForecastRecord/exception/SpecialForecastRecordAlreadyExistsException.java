@@ -1,0 +1,11 @@
+package com.heartforecast.domain.SpecialForecastRecord.exception;
+
+import com.heartforecast.common.exception.HeartForecastException;
+import org.springframework.http.HttpStatus;
+
+public class SpecialForecastRecordAlreadyExistsException extends HeartForecastException {
+  public SpecialForecastRecordAlreadyExistsException() {
+    super(HttpStatus.CONFLICT, "SPECIAL_FORECAST_RECORD_ALREADY_EXISTS", "특보 기록이 이미 존재합니다.");
+  }
+}
+
