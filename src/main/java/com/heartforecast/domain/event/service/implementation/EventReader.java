@@ -21,6 +21,11 @@ public class EventReader {
         .orElseThrow(EventNotFoundException::new);
   }
 
+  public Event findByIdAndChild(Long id, Child child) {
+    return eventRepository.findByIdAndChild(id, child)
+        .orElseThrow(EventNotFoundException::new);
+  }
+
   public List<Event> findAllByChildAndUser(Child child, Users user) {
     return eventRepository.findAllByChildAndUser(child, user);
   }
