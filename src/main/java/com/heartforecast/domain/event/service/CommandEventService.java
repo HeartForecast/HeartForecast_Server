@@ -41,7 +41,7 @@ public class CommandEventService {
   }
 
   public void update(EventUpdateRequest request, Long userId) {
-    Event event = queryEventService.readOne(request.eventId(), userId);
+    Event event = queryEventService.findOneByUser(request.eventId(), userId);
 
     //특보 구현 후 특보 있을 시 예외 발생 로직 추가 예정
 
@@ -49,6 +49,6 @@ public class CommandEventService {
   }
 
   public void delete(Long eventId, Long userId) {
-    eventDeleter.delete(queryEventService.readOne(eventId, userId));
+    eventDeleter.delete(queryEventService.findOneByUser(eventId, userId));
   }
 }
