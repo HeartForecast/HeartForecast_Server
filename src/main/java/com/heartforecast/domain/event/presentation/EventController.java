@@ -1,24 +1,53 @@
 package com.heartforecast.domain.event.presentation;
 
+import com.heartforecast.domain.event.domain.Event;
 import com.heartforecast.domain.event.presentation.dto.request.EventCreateRequest;
+import com.heartforecast.domain.event.presentation.dto.response.EventResponse;
 import com.heartforecast.domain.event.service.CommandEventService;
+import com.heartforecast.domain.event.service.QueryEventService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 import static com.heartforecast.common.jwt.util.AuthenticationUtil.getMemberId;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/event")
+@RequestMapping("/events")
 public class EventController {
 
   public final CommandEventService commandEventService;
+  public final QueryEventService queryEventService;
 
-  @PostMapping
+  @PostMapping("/event")
   public void createEvent(@RequestBody EventCreateRequest request) {
     commandEventService.create(request, getMemberId());
+  }
+
+  @GetMapping("/{child-id}/{event-id}")
+  public EventResponse getEvent(
+      @PathVariable("child-id") Long childId,
+      @PathVariable("event-id") Long eventId) {
+    Event event = queryEventService.readOne(eventId, getMemberId());
+    return EventResponse.from(
+        childId,
+        event.getDate(),
+        event.getTitle(),
+        event.getDescription()
+    );
+  }
+
+  @GetMapping("/{child-id}")
+  public List<EventResponse> getEvents(@PathVariable("child-id") Long childId) {
+    List<Event> events = queryEventService.readAll(childId, getMemberId());
+    return events.stream()
+        .map(event -> EventResponse.from(
+            event.getChild().getId(),
+            event.getDate(),
+            event.getTitle(),
+            event.getDescription()
+        ))
+        .toList();
   }
 }
