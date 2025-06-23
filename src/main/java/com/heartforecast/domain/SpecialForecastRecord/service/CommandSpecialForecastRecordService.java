@@ -2,7 +2,10 @@ package com.heartforecast.domain.SpecialForecastRecord.service;
 
 import com.heartforecast.domain.SpecialForecastRecord.domain.SpecialForecastRecord;
 import com.heartforecast.domain.SpecialForecastRecord.presentation.dto.request.SpecialForecastRecordCreateRequest;
+import com.heartforecast.domain.SpecialForecastRecord.presentation.dto.request.SpecialForecastRecordUpdateRequest;
 import com.heartforecast.domain.SpecialForecastRecord.service.implementation.SpecialForecastRecordCreator;
+import com.heartforecast.domain.SpecialForecastRecord.service.implementation.SpecialForecastRecordReader;
+import com.heartforecast.domain.SpecialForecastRecord.service.implementation.SpecialForecastRecordUpdater;
 import com.heartforecast.domain.SpecialForecastRecord.service.implementation.SpecialForecastRecordValidator;
 import com.heartforecast.domain.child.domain.Child;
 import com.heartforecast.domain.child.service.QueryChildService;
@@ -20,6 +23,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class CommandSpecialForecastRecordService {
 
   private final SpecialForecastRecordCreator specialForecastRecordCreator;
+  private final SpecialForecastRecordReader specialForecastRecordReader;
+  private final SpecialForecastRecordUpdater specialForecastRecordUpdater;
   private final SpecialForecastRecordValidator specialForecastRecordValidator;
   private final QueryChildService queryChildService;
   private final QueryEmotionTypeService queryEmotionTypeService;
@@ -39,5 +44,13 @@ public class CommandSpecialForecastRecordService {
         .memo(request.memo())
         .build();
     specialForecastRecordCreator.create(specialForecastRecord);
+  }
+
+  public void update(SpecialForecastRecordUpdateRequest request) {
+    Child child = queryChildService.readOne(request.childId());
+    EmotionType emotionType = queryEmotionTypeService.readOne(request.emotionTypeId());
+    SpecialForecastRecord specialForecastRecord = specialForecastRecordReader.findByIdAndChild(request.SpecialForecastRecordId(), child);
+
+    specialForecastRecordUpdater.update(specialForecastRecord, emotionType, request.memo());
   }
 }
