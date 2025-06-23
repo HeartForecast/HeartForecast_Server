@@ -11,18 +11,18 @@ import static com.heartforecast.common.jwt.util.AuthenticationUtil.getMemberId;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/child")
+@RequestMapping("/children")
 public class ChildController {
 
   private final CommandChildService commandChildService;
   private final CommandChildRelationService commandChildRelationService;
 
-  @PostMapping
+  @PostMapping("/child")
   public void createChild(@RequestBody ChildCreateRequest request) {
     commandChildRelationService.create(request, getMemberId());
   }
 
-  @PutMapping
+  @PutMapping("/child")
   public void updateChild(@RequestBody ChildUpdateRequest request) {
     commandChildService.update(request, getMemberId());
   }
