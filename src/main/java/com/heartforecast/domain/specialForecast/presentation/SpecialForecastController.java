@@ -41,4 +41,11 @@ public class SpecialForecastController {
   public void updateSpecialForecast(@RequestBody SpecialForecastUpdateRequest request) {
     commandSpecialForecastService.update(request);
   }
+
+  @DeleteMapping("/{child-id}/{specialForecast-id}")
+  public void deleteSpecialForecast(
+      @PathVariable("child-id") Long childId,
+      @PathVariable("specialForecast-id") Long specialForecastId) {
+    commandSpecialForecastService.delete(specialForecastId, childId);
+  }
 }
