@@ -8,7 +8,9 @@ import com.heartforecast.domain.event.domain.Event;
 import com.heartforecast.domain.event.service.QueryEventService;
 import com.heartforecast.domain.specialForecast.domain.SpecialForecast;
 import com.heartforecast.domain.specialForecast.presentation.dto.request.SpecialForecastCreateRequest;
+import com.heartforecast.domain.specialForecast.presentation.dto.request.SpecialForecastUpdateRequest;
 import com.heartforecast.domain.specialForecast.service.implementation.SpecialForecastCreator;
+import com.heartforecast.domain.specialForecast.service.implementation.SpecialForecastUpdater;
 import com.heartforecast.domain.specialForecast.service.implementation.SpecialForecastValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,7 +22,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class CommandSpecialForecastService {
 
   private final SpecialForecastCreator specialForecastCreator;
+  private final SpecialForecastUpdater specialForecastUpdater;
   private final SpecialForecastValidator specialForecastValidator;
+  private final QuerySpecialForecastService querySpecialForecastService;
   private final QueryChildService queryChildService;
   private final QueryEmotionTypeService queryEmotionTypeService;
   private final QueryEventService queryEventService;
@@ -39,5 +43,12 @@ public class CommandSpecialForecastService {
         .memo(request.memo())
         .build();
     specialForecastCreator.create(specialForecast);
+  }
+
+  public void update(SpecialForecastUpdateRequest request) {
+    SpecialForecast specialForecast = querySpecialForecastService.readOne(request.specialForecastId(), request.childId());
+    EmotionType emotionType = queryEmotionTypeService.readOne(request.emotionTypeId());
+
+    specialForecastUpdater.update(specialForecast, emotionType, request.memo());
   }
 }
