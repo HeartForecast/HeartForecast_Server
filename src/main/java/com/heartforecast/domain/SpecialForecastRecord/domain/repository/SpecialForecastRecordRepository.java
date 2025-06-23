@@ -14,4 +14,5 @@ public interface SpecialForecastRecordRepository extends JpaRepository<SpecialFo
   boolean existsBySpecialForecast(SpecialForecast specialForecast);
   Optional<SpecialForecastRecord> findByIdAndChild(Long id, Child child);
   List<SpecialForecastRecord> findAllByChild(Child child);
+  void deleteBySpecialForecast(SpecialForecast specialForecast);
 }
