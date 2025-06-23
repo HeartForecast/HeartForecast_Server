@@ -61,9 +61,6 @@ public class EventController {
 
   @DeleteMapping("/{event-id}")
   public void deleteEvent(@PathVariable("event-id") Long eventId) {
-
-    //특보 구현시 생성된 특보 삭제 로직 추가 예정
-
     commandEventService.delete(eventId, getMemberId());
   }
 }
