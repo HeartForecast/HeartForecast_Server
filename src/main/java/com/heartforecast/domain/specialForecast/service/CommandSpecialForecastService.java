@@ -10,6 +10,7 @@ import com.heartforecast.domain.specialForecast.domain.SpecialForecast;
 import com.heartforecast.domain.specialForecast.presentation.dto.request.SpecialForecastCreateRequest;
 import com.heartforecast.domain.specialForecast.presentation.dto.request.SpecialForecastUpdateRequest;
 import com.heartforecast.domain.specialForecast.service.implementation.SpecialForecastCreator;
+import com.heartforecast.domain.specialForecast.service.implementation.SpecialForecastDeleter;
 import com.heartforecast.domain.specialForecast.service.implementation.SpecialForecastUpdater;
 import com.heartforecast.domain.specialForecast.service.implementation.SpecialForecastValidator;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,7 @@ public class CommandSpecialForecastService {
 
   private final SpecialForecastCreator specialForecastCreator;
   private final SpecialForecastUpdater specialForecastUpdater;
+  private final SpecialForecastDeleter specialForecastDeleter;
   private final SpecialForecastValidator specialForecastValidator;
   private final QuerySpecialForecastService querySpecialForecastService;
   private final QueryChildService queryChildService;
@@ -50,5 +52,9 @@ public class CommandSpecialForecastService {
     EmotionType emotionType = queryEmotionTypeService.readOne(request.emotionTypeId());
 
     specialForecastUpdater.update(specialForecast, emotionType, request.memo());
+  }
+
+  public void delete(Long specialForecastId, Long childId) {
+    specialForecastDeleter.delete(querySpecialForecastService.readOne(specialForecastId, childId));
   }
 }
