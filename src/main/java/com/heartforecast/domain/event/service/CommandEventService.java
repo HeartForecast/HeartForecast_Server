@@ -8,7 +8,7 @@ import com.heartforecast.domain.event.presentation.dto.request.EventUpdateReques
 import com.heartforecast.domain.event.service.implementation.EventCreator;
 import com.heartforecast.domain.event.service.implementation.EventDeleter;
 import com.heartforecast.domain.event.service.implementation.EventUpdater;
-import com.heartforecast.domain.specialForecast.service.implementation.SpecialForecastDeleter;
+import com.heartforecast.domain.specialForecast.service.CommandSpecialForecastService;
 import com.heartforecast.domain.specialForecast.service.implementation.SpecialForecastValidator;
 import com.heartforecast.domain.user.domain.Users;
 import com.heartforecast.domain.user.service.QueryUserService;
@@ -27,8 +27,8 @@ public class CommandEventService {
   private final QueryEventService queryEventService;
   private final QueryChildService queryChildService;
   private final QueryUserService queryUserService;
-  private final SpecialForecastDeleter specialForecastDeleter;
   private final SpecialForecastValidator specialForecastValidator;
+  private final CommandSpecialForecastService commandSpecialForecastService;
 
   public void create(EventCreateRequest request, Long userId) {
     Child child = queryChildService.readOne(request.childId());
@@ -53,9 +53,7 @@ public class CommandEventService {
   }
 
   public void delete(Long eventId, Long userId) {
-    Event event = queryEventService.findOneByUser(eventId, userId);
-
-    specialForecastDeleter.deleteByEvent(event);
-    eventDeleter.delete(event);
+    commandSpecialForecastService.deleteByEvent(eventId, userId);
+    eventDeleter.delete(queryEventService.findOneByUser(eventId, userId));
   }
 }
