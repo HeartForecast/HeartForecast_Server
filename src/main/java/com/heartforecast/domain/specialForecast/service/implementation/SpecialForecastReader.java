@@ -1,6 +1,7 @@
 package com.heartforecast.domain.specialForecast.service.implementation;
 
 import com.heartforecast.domain.child.domain.Child;
+import com.heartforecast.domain.event.domain.Event;
 import com.heartforecast.domain.specialForecast.domain.SpecialForecast;
 import com.heartforecast.domain.specialForecast.domain.repository.SpecialForecastRepository;
 import com.heartforecast.domain.specialForecast.exception.SpecialForecastNotFoundException;
@@ -22,5 +23,10 @@ public class SpecialForecastReader {
 
   public List<SpecialForecast> findAllByChild(Child child) {
     return specialForecastRepository.findAllByChild(child);
+  }
+
+  public SpecialForecast findByEvent(Event event) {
+    return specialForecastRepository.findByEvent(event)
+        .orElseThrow(SpecialForecastNotFoundException::new);
   }
 }
