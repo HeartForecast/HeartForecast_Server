@@ -2,6 +2,7 @@ package com.heartforecast.domain.event.presentation;
 
 import com.heartforecast.domain.event.domain.Event;
 import com.heartforecast.domain.event.presentation.dto.request.EventCreateRequest;
+import com.heartforecast.domain.event.presentation.dto.request.EventUpdateRequest;
 import com.heartforecast.domain.event.presentation.dto.response.EventResponse;
 import com.heartforecast.domain.event.service.CommandEventService;
 import com.heartforecast.domain.event.service.QueryEventService;
@@ -49,5 +50,10 @@ public class EventController {
             event.getDescription()
         ))
         .toList();
+  }
+
+  @PutMapping("/event")
+  public void updateEvent(@RequestBody EventUpdateRequest request) {
+    commandEventService.update(request, getMemberId());
   }
 }
