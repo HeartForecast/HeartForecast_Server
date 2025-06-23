@@ -29,7 +29,7 @@ public class SpecialForecast {
   @ManyToOne(fetch = FetchType.LAZY)
   private Child child;
 
-  @OneToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.LAZY)
   private EmotionType emotionType;
 
   private String memo;
