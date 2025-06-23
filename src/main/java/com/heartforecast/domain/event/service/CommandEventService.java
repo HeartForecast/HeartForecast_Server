@@ -4,7 +4,9 @@ import com.heartforecast.domain.child.domain.Child;
 import com.heartforecast.domain.child.service.QueryChildService;
 import com.heartforecast.domain.event.domain.Event;
 import com.heartforecast.domain.event.presentation.dto.request.EventCreateRequest;
+import com.heartforecast.domain.event.presentation.dto.request.EventUpdateRequest;
 import com.heartforecast.domain.event.service.implementation.EventCreator;
+import com.heartforecast.domain.event.service.implementation.EventUpdater;
 import com.heartforecast.domain.user.domain.Users;
 import com.heartforecast.domain.user.service.QueryUserService;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class CommandEventService {
 
   private final EventCreator eventCreator;
+  private final EventUpdater eventUpdater;
+  private final QueryEventService queryEventService;
   private final QueryChildService queryChildService;
   private final QueryUserService queryUserService;
 
@@ -32,5 +36,13 @@ public class CommandEventService {
         .description(request.description())
         .build();
     eventCreator.create(event);
+  }
+
+  public void update(EventUpdateRequest request, Long userId) {
+    Event event = queryEventService.readOne(request.eventId(), userId);
+
+    //특보 구현 후 특보 있을 시 예외 발생 로직 추가 예정
+
+    eventUpdater.update(event, request.date(), request.title(), request.description());
   }
 }
