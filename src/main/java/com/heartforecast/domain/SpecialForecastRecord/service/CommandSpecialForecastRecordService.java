@@ -3,10 +3,7 @@ package com.heartforecast.domain.SpecialForecastRecord.service;
 import com.heartforecast.domain.SpecialForecastRecord.domain.SpecialForecastRecord;
 import com.heartforecast.domain.SpecialForecastRecord.presentation.dto.request.SpecialForecastRecordCreateRequest;
 import com.heartforecast.domain.SpecialForecastRecord.presentation.dto.request.SpecialForecastRecordUpdateRequest;
-import com.heartforecast.domain.SpecialForecastRecord.service.implementation.SpecialForecastRecordCreator;
-import com.heartforecast.domain.SpecialForecastRecord.service.implementation.SpecialForecastRecordReader;
-import com.heartforecast.domain.SpecialForecastRecord.service.implementation.SpecialForecastRecordUpdater;
-import com.heartforecast.domain.SpecialForecastRecord.service.implementation.SpecialForecastRecordValidator;
+import com.heartforecast.domain.SpecialForecastRecord.service.implementation.*;
 import com.heartforecast.domain.child.domain.Child;
 import com.heartforecast.domain.child.service.QueryChildService;
 import com.heartforecast.domain.emotionType.domain.EmotionType;
@@ -23,9 +20,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class CommandSpecialForecastRecordService {
 
   private final SpecialForecastRecordCreator specialForecastRecordCreator;
-  private final SpecialForecastRecordReader specialForecastRecordReader;
   private final SpecialForecastRecordUpdater specialForecastRecordUpdater;
+  private final SpecialForecastRecordDeleter specialForecastRecordDeleter;
   private final SpecialForecastRecordValidator specialForecastRecordValidator;
+  private final QuerySpecialForecastRecordService querySpecialForecastRecordService;
   private final QueryChildService queryChildService;
   private final QueryEmotionTypeService queryEmotionTypeService;
   private final QuerySpecialForecastService querySpecialForecastService;
@@ -47,10 +45,13 @@ public class CommandSpecialForecastRecordService {
   }
 
   public void update(SpecialForecastRecordUpdateRequest request) {
-    Child child = queryChildService.readOne(request.childId());
     EmotionType emotionType = queryEmotionTypeService.readOne(request.emotionTypeId());
-    SpecialForecastRecord specialForecastRecord = specialForecastRecordReader.findByIdAndChild(request.SpecialForecastRecordId(), child);
+    SpecialForecastRecord specialForecastRecord = querySpecialForecastRecordService.readOne(request.SpecialForecastRecordId(), request.childId());
 
     specialForecastRecordUpdater.update(specialForecastRecord, emotionType, request.memo());
+  }
+
+  public void delete(Long specialForecastRecordId, Long childId) {
+    specialForecastRecordDeleter.delete(querySpecialForecastRecordService.readOne(specialForecastRecordId, childId));
   }
 }
