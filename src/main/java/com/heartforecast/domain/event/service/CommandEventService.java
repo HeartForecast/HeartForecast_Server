@@ -8,6 +8,8 @@ import com.heartforecast.domain.event.presentation.dto.request.EventUpdateReques
 import com.heartforecast.domain.event.service.implementation.EventCreator;
 import com.heartforecast.domain.event.service.implementation.EventDeleter;
 import com.heartforecast.domain.event.service.implementation.EventUpdater;
+import com.heartforecast.domain.specialForecast.service.implementation.SpecialForecastDeleter;
+import com.heartforecast.domain.specialForecast.service.implementation.SpecialForecastValidator;
 import com.heartforecast.domain.user.domain.Users;
 import com.heartforecast.domain.user.service.QueryUserService;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +27,8 @@ public class CommandEventService {
   private final QueryEventService queryEventService;
   private final QueryChildService queryChildService;
   private final QueryUserService queryUserService;
+  private final SpecialForecastDeleter specialForecastDeleter;
+  private final SpecialForecastValidator specialForecastValidator;
 
   public void create(EventCreateRequest request, Long userId) {
     Child child = queryChildService.readOne(request.childId());
@@ -43,15 +47,15 @@ public class CommandEventService {
   public void update(EventUpdateRequest request, Long userId) {
     Event event = queryEventService.findOneByUser(request.eventId(), userId);
 
-    //특보 구현 후 특보 있을 시 예외 발생 로직 추가 예정
+    specialForecastValidator.validate(event);
 
     eventUpdater.update(event, request.date(), request.title(), request.description());
   }
 
   public void delete(Long eventId, Long userId) {
+    Event event = queryEventService.findOneByUser(eventId, userId);
 
-    //특보 구현시 생성된 특보 삭제 로직 추가 예정
-
-    eventDeleter.delete(queryEventService.findOneByUser(eventId, userId));
+    specialForecastDeleter.deleteByEvent(event);
+    eventDeleter.delete(event);
   }
 }
