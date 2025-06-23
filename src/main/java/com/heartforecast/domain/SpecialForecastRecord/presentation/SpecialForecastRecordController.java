@@ -1,6 +1,7 @@
 package com.heartforecast.domain.SpecialForecastRecord.presentation;
 
 import com.heartforecast.domain.SpecialForecastRecord.presentation.dto.request.SpecialForecastRecordCreateRequest;
+import com.heartforecast.domain.SpecialForecastRecord.presentation.dto.request.SpecialForecastRecordUpdateRequest;
 import com.heartforecast.domain.SpecialForecastRecord.presentation.dto.response.SpecialForecastRecordResponse;
 import com.heartforecast.domain.SpecialForecastRecord.service.CommandSpecialForecastRecordService;
 import com.heartforecast.domain.SpecialForecastRecord.service.QuerySpecialForecastRecordService;
@@ -34,5 +35,10 @@ public class SpecialForecastRecordController {
     return querySpecialForecastRecordService.readAll(childId).stream()
         .map(SpecialForecastRecordResponse::from)
         .toList();
+  }
+
+  @PutMapping("specialForecastRecord")
+  public void updateSpecialForecastRecord(@RequestBody SpecialForecastRecordUpdateRequest request) {
+    commandSpecialForecastRecordService.update(request);
   }
 }
