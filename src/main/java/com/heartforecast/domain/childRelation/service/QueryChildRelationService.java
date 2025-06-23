@@ -24,11 +24,13 @@ public class QueryChildRelationService {
   public ChildRelation readOne(Long childId, Long userId) {
     Child child = queryChildService.readOne(childId);
     Users user = queryUserService.readOne(userId);
+
     return childRelationReader.findByUserAndChild(child, user);
   }
 
   public List<ChildRelation> readAll(Long userId) {
     Users user = queryUserService.readOne(userId);
+
     return childRelationReader.findByUser(user);
   }
 }
