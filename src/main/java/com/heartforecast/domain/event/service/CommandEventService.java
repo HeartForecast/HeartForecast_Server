@@ -49,7 +49,6 @@ public class CommandEventService {
   }
 
   public void delete(Long eventId, Long userId) {
-    Event event = queryEventService.readOne(eventId, userId);
-    eventDeleter.delete(event);
+    eventDeleter.delete(queryEventService.readOne(eventId, userId));
   }
 }
