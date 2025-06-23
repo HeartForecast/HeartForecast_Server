@@ -14,5 +14,6 @@ public interface SpecialForecastRepository extends JpaRepository<SpecialForecast
   boolean existsByEvent(Event event);
   Optional<SpecialForecast> findByIdAndChild(Long id, Child child);
   List<SpecialForecast> findAllByChild(Child child);
+  Optional<SpecialForecast> findByEvent(Event event);
   void deleteByEvent(Event event);
 }
