@@ -1,5 +1,7 @@
 package com.heartforecast.domain.specialForecast.service;
 
+import com.heartforecast.domain.SpecialForecastRecord.service.CommandSpecialForecastRecordService;
+import com.heartforecast.domain.SpecialForecastRecord.service.implementation.SpecialForecastRecordValidator;
 import com.heartforecast.domain.child.domain.Child;
 import com.heartforecast.domain.child.service.QueryChildService;
 import com.heartforecast.domain.emotionType.domain.EmotionType;
@@ -26,6 +28,8 @@ public class CommandSpecialForecastService {
   private final SpecialForecastUpdater specialForecastUpdater;
   private final SpecialForecastDeleter specialForecastDeleter;
   private final SpecialForecastValidator specialForecastValidator;
+  private final SpecialForecastRecordValidator specialForecastRecordValidator;
+  private final CommandSpecialForecastRecordService commandSpecialForecastRecordService;
   private final QuerySpecialForecastService querySpecialForecastService;
   private final QueryChildService queryChildService;
   private final QueryEmotionTypeService queryEmotionTypeService;
@@ -51,7 +55,7 @@ public class CommandSpecialForecastService {
     SpecialForecast specialForecast = querySpecialForecastService.readOne(request.specialForecastId(), request.childId());
     EmotionType emotionType = queryEmotionTypeService.readOne(request.emotionTypeId());
 
-    // 만약 특보 기록 존재시 예외 처리
+    specialForecastRecordValidator.validate(specialForecast);
 
     specialForecastUpdater.update(specialForecast, emotionType, request.memo());
   }
@@ -59,8 +63,14 @@ public class CommandSpecialForecastService {
   public void delete(Long specialForecastId, Long childId) {
     SpecialForecast specialForecast = querySpecialForecastService.readOne(specialForecastId, childId);
 
-    // 만약 특보 기록 존재시 삭제 로직
-
+    commandSpecialForecastRecordService.deleteBySpecialForecast(specialForecastId, childId);
     specialForecastDeleter.delete(specialForecast);
+  }
+
+  public void deleteByEvent(Long eventId, Long userId) {
+    SpecialForecast specialForecast = querySpecialForecastService.findByEvent(eventId, userId);
+
+    commandSpecialForecastRecordService.deleteBySpecialForecast(specialForecast.getId(), specialForecast.getChild().getId());
+    specialForecastDeleter.deleteByEvent(queryEventService.findOneByUser(eventId, userId));
   }
 }
