@@ -17,13 +17,13 @@ import static java.util.stream.Collectors.toList;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/childRelation")
+@RequestMapping("/childRelations")
 public class ChildRelationController {
 
   private final CommandChildRelationService commandChildRelationService;
   private final QueryChildRelationService queryChildRelationService;
 
-  @PostMapping
+  @PostMapping("childRelation")
   public void joinChildRelation(@RequestBody ChildRelationJoinRequest request) {
     commandChildRelationService.join(request, getMemberId());
   }
@@ -47,7 +47,7 @@ public class ChildRelationController {
         .collect(toList());
   }
 
-  @PutMapping
+  @PutMapping("childRelation")
   public void updateChildRelation(@RequestBody ChildRelationUpdateRequest request) {
     commandChildRelationService.update(request, getMemberId());
   }
