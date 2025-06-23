@@ -21,10 +21,16 @@ public class QueryEventService {
   private final QueryChildService queryChildService;
   private final QueryUserService queryUserService;
 
-  public Event readOne(Long eventId, Long userId) {
+  public Event findOneByUser(Long eventId, Long userId) {
     Users user = queryUserService.readOne(userId);
 
     return eventReader.findByIdAndUser(eventId, user);
+  }
+
+  public Event findOneByChild(Long eventId, Long childId) {
+    Child child = queryChildService.readOne(childId);
+
+    return eventReader.findByIdAndChild(eventId, child);
   }
 
   public List<Event> readAll(Long childId, Long userId) {
