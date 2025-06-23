@@ -51,6 +51,8 @@ public class CommandSpecialForecastService {
     SpecialForecast specialForecast = querySpecialForecastService.readOne(request.specialForecastId(), request.childId());
     EmotionType emotionType = queryEmotionTypeService.readOne(request.emotionTypeId());
 
+    // 만약 특보 기록 존재시 예외 처리
+
     specialForecastUpdater.update(specialForecast, emotionType, request.memo());
   }
 
