@@ -41,4 +41,11 @@ public class SpecialForecastRecordController {
   public void updateSpecialForecastRecord(@RequestBody SpecialForecastRecordUpdateRequest request) {
     commandSpecialForecastRecordService.update(request);
   }
+
+  @DeleteMapping("/{child-id}/{specialForecastRecord-id}")
+  public void deleteSpecialForecastRecord(
+      @PathVariable("child-id") Long childId,
+      @PathVariable("specialForecastRecord-id") Long specialForecastRecordId) {
+    commandSpecialForecastRecordService.delete(specialForecastRecordId, childId);
+  }
 }
