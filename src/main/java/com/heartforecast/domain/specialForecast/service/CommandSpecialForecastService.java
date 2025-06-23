@@ -10,9 +10,9 @@ import com.heartforecast.domain.specialForecast.domain.SpecialForecast;
 import com.heartforecast.domain.specialForecast.presentation.dto.request.SpecialForecastCreateRequest;
 import com.heartforecast.domain.specialForecast.service.implementation.SpecialForecastCreator;
 import com.heartforecast.domain.specialForecast.service.implementation.SpecialForecastValidator;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
