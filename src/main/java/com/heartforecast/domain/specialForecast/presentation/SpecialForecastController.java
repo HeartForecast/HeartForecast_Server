@@ -1,12 +1,11 @@
 package com.heartforecast.domain.specialForecast.presentation;
 
 import com.heartforecast.domain.specialForecast.presentation.dto.request.SpecialForecastCreateRequest;
+import com.heartforecast.domain.specialForecast.presentation.dto.response.SpecialForecastResponse;
 import com.heartforecast.domain.specialForecast.service.CommandSpecialForecastService;
+import com.heartforecast.domain.specialForecast.service.QuerySpecialForecastService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -14,9 +13,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class SpecialForecastController {
 
   private final CommandSpecialForecastService commandSpecialForecastService;
+  private final QuerySpecialForecastService querySpecialForecastService;
 
   @PostMapping("/specialForecast")
   public void createSpecialForecast(@RequestBody SpecialForecastCreateRequest request) {
     commandSpecialForecastService.create(request);
+  }
+
+  @GetMapping("/{child-id}/{specialForecast-id}")
+  public SpecialForecastResponse getSpecialForecast(
+      @PathVariable("child-id") Long childId,
+      @PathVariable("specialForecast-id") Long specialForecastId) {
+    return SpecialForecastResponse.from(querySpecialForecastService.readOne(specialForecastId, childId));
   }
 }
