@@ -6,6 +6,7 @@ import com.heartforecast.domain.event.domain.Event;
 import com.heartforecast.domain.event.presentation.dto.request.EventCreateRequest;
 import com.heartforecast.domain.event.presentation.dto.request.EventUpdateRequest;
 import com.heartforecast.domain.event.service.implementation.EventCreator;
+import com.heartforecast.domain.event.service.implementation.EventDeleter;
 import com.heartforecast.domain.event.service.implementation.EventUpdater;
 import com.heartforecast.domain.user.domain.Users;
 import com.heartforecast.domain.user.service.QueryUserService;
@@ -20,6 +21,7 @@ public class CommandEventService {
 
   private final EventCreator eventCreator;
   private final EventUpdater eventUpdater;
+  private final EventDeleter eventDeleter;
   private final QueryEventService queryEventService;
   private final QueryChildService queryChildService;
   private final QueryUserService queryUserService;
@@ -44,5 +46,10 @@ public class CommandEventService {
     //특보 구현 후 특보 있을 시 예외 발생 로직 추가 예정
 
     eventUpdater.update(event, request.date(), request.title(), request.description());
+  }
+
+  public void delete(Long eventId, Long userId) {
+    Event event = queryEventService.readOne(eventId, userId);
+    eventDeleter.delete(event);
   }
 }
