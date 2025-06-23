@@ -7,6 +7,8 @@ import com.heartforecast.domain.specialForecast.exception.SpecialForecastNotFoun
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class SpecialForecastReader {
@@ -16,5 +18,9 @@ public class SpecialForecastReader {
   public SpecialForecast findByIdAndChild(Long id, Child child) {
     return specialForecastRepository.findByIdAndChild(id, child)
         .orElseThrow(SpecialForecastNotFoundException::new);
+  }
+
+  public List<SpecialForecast> findAllByChild(Child child) {
+    return specialForecastRepository.findAllByChild(child);
   }
 }
