@@ -17,12 +17,15 @@ import org.springframework.transaction.annotation.Transactional;
 public class CommandForecastService {
 
   private final ForecastCreator forecastCreator;
+  private final QueryForecastService queryForecastService;
   private final QueryChildService queryChildService;
   private final QueryEmotionTypeService queryEmotionTypeService;
 
   public void create(ForecastCreateRequest request) {
     Child child = queryChildService.readOne(request.childId());
     EmotionType emotionType = queryEmotionTypeService.readOne(request.emotionTypeId());
+
+    queryForecastService.existsByDateAndTimeZone(request.childId(), request.date(), request.timeZone());
 
     Forecast forecast = Forecast.builder()
         .child(child)
