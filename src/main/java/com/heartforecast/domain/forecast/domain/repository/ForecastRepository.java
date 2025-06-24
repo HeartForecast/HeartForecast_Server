@@ -12,5 +12,6 @@ import java.util.Optional;
 public interface ForecastRepository extends JpaRepository<Forecast, Long> {
   Optional<Forecast> findByIdAndChild(Long id, Child child);
   List<Forecast> findByChild(Child child);
+  List<Forecast> findByDateAndChild(LocalDate date, Child child);
   boolean existsByChildAndDateAndTimeZone(Child child, LocalDate date, TimeZone timeZone);
 }
