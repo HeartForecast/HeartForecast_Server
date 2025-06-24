@@ -29,8 +29,10 @@ public class QueryChildRelationService {
   }
 
   public List<ChildRelation> readAll(Long userId) {
-    Users user = queryUserService.readOne(userId);
+    return childRelationReader.findByUser(queryUserService.readOne(userId));
+  }
 
-    return childRelationReader.findByUser(user);
+  public boolean existsRelation(Long childId) {
+    return childRelationReader.existsByChild(queryChildService.readOne(childId));
   }
 }
