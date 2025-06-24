@@ -3,7 +3,7 @@ package com.heartforecast.domain.forecastRecord.domain;
 import com.heartforecast.domain.child.domain.Child;
 import com.heartforecast.domain.emotionType.domain.EmotionType;
 import com.heartforecast.domain.forecast.domain.Forecast;
-import com.heartforecast.domain.forecast.domain.value.TimeZone;
+import com.heartforecast.domain.forecastRecord.domain.value.TimeZone;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
