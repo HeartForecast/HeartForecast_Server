@@ -10,6 +10,7 @@ import com.heartforecast.domain.forecast.presentation.dto.request.ForecastUpdate
 import com.heartforecast.domain.forecast.service.implementation.ForecastCreator;
 import com.heartforecast.domain.forecast.service.implementation.ForecastDeleter;
 import com.heartforecast.domain.forecast.service.implementation.ForecastUpdater;
+import com.heartforecast.domain.forecastRecord.service.QueryForecastRecordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +27,7 @@ public class CommandForecastService {
   private final ForecastUpdater forecastUpdater;
   private final ForecastDeleter forecastDeleter;
   private final QueryForecastService queryForecastService;
+  private final QueryForecastRecordService queryForecastRecordService;
   private final QueryChildService queryChildService;
   private final QueryEmotionTypeService queryEmotionTypeService;
 
@@ -49,7 +51,7 @@ public class CommandForecastService {
     Forecast forecast = queryForecastService.readOne(request.forecastId(), request.childId());
     EmotionType emotionType = queryEmotionTypeService.readOne(request.emotionTypeId());
 
-    //만약 예보 기록 존재시 업데이트 불가능
+    queryForecastRecordService.existsByForecast(request.forecastId(), request.childId());
 
     forecastUpdater.update(forecast, emotionType, request.memo());
   }
@@ -59,7 +61,7 @@ public class CommandForecastService {
 
     for (Forecast forecast : forecasts) {
 
-      // 예보 기록 삭제 로직 필요하면 여기서 호출
+      // 예보 삭제시 예보 기록 삭제
 
       forecastDeleter.delete(forecast);
     }
