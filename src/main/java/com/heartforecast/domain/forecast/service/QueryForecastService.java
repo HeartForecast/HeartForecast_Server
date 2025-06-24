@@ -29,6 +29,10 @@ public class QueryForecastService {
     return forecastReader.findAllByChild(queryChildService.readOne(childId));
   }
 
+  public List<Forecast> findDate(LocalDate date, Long childId) {
+    return forecastReader.findByDateAndChild(date, queryChildService.readOne(childId));
+  }
+
   public void existsByDateAndTimeZone(Long childId, LocalDate date, TimeZone timeZone) {
     forecastValidator.existsByChildAndDateAndTimeZone(queryChildService.readOne(childId), date, timeZone);
   }
