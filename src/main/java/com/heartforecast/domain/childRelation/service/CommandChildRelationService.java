@@ -48,7 +48,7 @@ public class CommandChildRelationService {
     Child child = queryChildService.findInviteCode(request.inviteCode());
     Users user = queryUserService.readOne(userId);
 
-    childRelationValidator.validate(child, user);
+    childRelationValidator.existsByChildAndUser(child, user);
 
     ChildRelation childRelation = ChildRelation.builder()
         .child(child)
@@ -64,6 +64,8 @@ public class CommandChildRelationService {
 
   public void delete(Long childId, Long userId) {
     childRelationDeleter.delete(queryChildRelationService.readOne(childId, userId));
+
+    if (!queryChildRelationService.existsRelation(childId)) commandChildService.delete(childId);
   }
 
   public void deleteAll(Long childId, Long userId) {

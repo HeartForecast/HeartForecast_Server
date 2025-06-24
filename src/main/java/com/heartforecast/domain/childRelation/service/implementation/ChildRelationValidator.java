@@ -13,7 +13,7 @@ public class ChildRelationValidator {
 
   private final ChildRelationRepository childRelationRepository;
 
-  public void validate(Child child, Users user) {
+  public void existsByChildAndUser(Child child, Users user) {
     if (childRelationRepository.existsByChildAndUser(child, user)) throw new DuplicateChildRelationException();
   }
 }
