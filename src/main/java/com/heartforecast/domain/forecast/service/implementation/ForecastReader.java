@@ -7,6 +7,7 @@ import com.heartforecast.domain.forecast.exception.ForecastNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -22,5 +23,9 @@ public class ForecastReader {
 
   public List<Forecast> findAllByChild(Child child) {
     return forecastRepository.findByChild(child);
+  }
+
+  public List<Forecast> findByDateAndChild(LocalDate date, Child child) {
+    return forecastRepository.findByDateAndChild(date, child);
   }
 }
