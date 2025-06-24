@@ -1,6 +1,7 @@
 package com.heartforecast.domain.forecastRecord.presentation.dto.request;
 
-import com.heartforecast.domain.forecast.domain.value.TimeZone;
+
+import com.heartforecast.domain.forecastRecord.domain.value.TimeZone;
 
 import java.time.LocalDate;
 
