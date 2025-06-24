@@ -24,4 +24,8 @@ public class ChildRelationReader {
   public List<ChildRelation> findByUser(Users user) {
     return childRelationRepository.findByUser(user);
   }
+
+  public boolean existsByChild(Child child) {
+    return childRelationRepository.existsByChild(child);
+  }
 }
