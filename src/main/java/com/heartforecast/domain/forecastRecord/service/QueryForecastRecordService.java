@@ -1,5 +1,6 @@
 package com.heartforecast.domain.forecastRecord.service;
 
+import com.heartforecast.domain.child.domain.Child;
 import com.heartforecast.domain.child.service.QueryChildService;
 import com.heartforecast.domain.forecast.service.QueryForecastService;
 import com.heartforecast.domain.forecastRecord.domain.ForecastRecord;
@@ -46,5 +47,11 @@ public class QueryForecastRecordService {
 
   public void existsByForecast(Long forecastId, Long childId) {
     forecastRecordValidator.existsByForecast(queryForecastService.readOne(forecastId, childId));
+  }
+
+  public void overUpdateTimeExpire(Long forecastRecordId, Long childId) {
+    Child child = queryChildService.readOne(childId);
+
+    forecastRecordValidator.overUpdateTimeExpire(forecastRecordReader.findByChild(forecastRecordId, child));
   }
 }
