@@ -8,15 +8,11 @@ import com.heartforecast.domain.forecast.domain.Forecast;
 import com.heartforecast.domain.forecast.presentation.dto.request.ForecastCreateRequest;
 import com.heartforecast.domain.forecast.presentation.dto.request.ForecastUpdateRequest;
 import com.heartforecast.domain.forecast.service.implementation.ForecastCreator;
-import com.heartforecast.domain.forecast.service.implementation.ForecastDeleter;
 import com.heartforecast.domain.forecast.service.implementation.ForecastUpdater;
 import com.heartforecast.domain.forecastRecord.service.QueryForecastRecordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDate;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -25,7 +21,6 @@ public class CommandForecastService {
 
   private final ForecastCreator forecastCreator;
   private final ForecastUpdater forecastUpdater;
-  private final ForecastDeleter forecastDeleter;
   private final QueryForecastService queryForecastService;
   private final QueryForecastRecordService queryForecastRecordService;
   private final QueryChildService queryChildService;
@@ -54,16 +49,5 @@ public class CommandForecastService {
     queryForecastRecordService.existsByForecast(request.forecastId(), request.childId());
 
     forecastUpdater.update(forecast, emotionType, request.memo());
-  }
-
-  public void delete(LocalDate date, Long childId) {
-    List<Forecast> forecasts = queryForecastService.findDate(date, childId);
-
-    for (Forecast forecast : forecasts) {
-
-      // 예보 삭제시 예보 기록 삭제
-
-      forecastDeleter.delete(forecast);
-    }
   }
 }
