@@ -1,15 +1,14 @@
 package com.heartforecast.domain.forecastRecord.service.implementation;
 
-import com.heartforecast.domain.child.domain.Child;
 import com.heartforecast.domain.forecast.domain.Forecast;
-import com.heartforecast.domain.forecastRecord.domain.value.TimeZone;
-import com.heartforecast.domain.forecast.exception.ForecastAlreadyExistsException;
+import com.heartforecast.domain.forecastRecord.domain.ForecastRecord;
 import com.heartforecast.domain.forecastRecord.domain.repository.ForecastRecordRepository;
 import com.heartforecast.domain.forecastRecord.exception.ForecastRecordAlreadyExistsException;
+import com.heartforecast.domain.forecastRecord.exception.ForecastRecordUpdateTimeExpiredException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
@@ -21,7 +20,7 @@ public class ForecastRecordValidator {
     if (forecastRecordRepository.existsByForecast(forecast)) throw new ForecastRecordAlreadyExistsException();
   }
 
-  public void existsByChildAndDateAndTimeZone(Child child, LocalDate date, TimeZone timeZone) {
-    if (forecastRecordRepository.existsByChildAndDateAndTimeZone(child, date, timeZone)) throw new ForecastAlreadyExistsException();
+  public void overUpdateTimeExpire(ForecastRecord forecastRecord) {
+    if (forecastRecord.getCreatedAt().isBefore(LocalDateTime.now().minusHours(24))) throw new ForecastRecordUpdateTimeExpiredException();
   }
 }
