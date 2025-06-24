@@ -6,7 +6,9 @@ import com.heartforecast.domain.emotionType.domain.EmotionType;
 import com.heartforecast.domain.emotionType.service.QueryEmotionTypeService;
 import com.heartforecast.domain.forecast.domain.Forecast;
 import com.heartforecast.domain.forecast.presentation.dto.request.ForecastCreateRequest;
+import com.heartforecast.domain.forecast.presentation.dto.request.ForecastUpdateRequest;
 import com.heartforecast.domain.forecast.service.implementation.ForecastCreator;
+import com.heartforecast.domain.forecast.service.implementation.ForecastUpdater;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class CommandForecastService {
 
   private final ForecastCreator forecastCreator;
+  private final ForecastUpdater forecastUpdater;
   private final QueryForecastService queryForecastService;
   private final QueryChildService queryChildService;
   private final QueryEmotionTypeService queryEmotionTypeService;
@@ -35,5 +38,14 @@ public class CommandForecastService {
         .memo(request.memo())
         .build();
     forecastCreator.create(forecast);
+  }
+
+  public void update(ForecastUpdateRequest request) {
+    Forecast forecast = queryForecastService.readOne(request.forecastId(), request.childId());
+    EmotionType emotionType = queryEmotionTypeService.readOne(request.emotionTypeId());
+
+    //만약 예보 기록 존재시 업데이트 불가능
+
+    forecastUpdater.update(forecast, emotionType, request.memo());
   }
 }
