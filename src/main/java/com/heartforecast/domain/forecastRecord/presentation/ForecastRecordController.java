@@ -1,6 +1,7 @@
 package com.heartforecast.domain.forecastRecord.presentation;
 
 import com.heartforecast.domain.forecastRecord.presentation.dto.request.ForecastRecordCreateRequest;
+import com.heartforecast.domain.forecastRecord.presentation.dto.request.ForecastRecordUpdateRequest;
 import com.heartforecast.domain.forecastRecord.presentation.dto.response.ForecastRecordResponse;
 import com.heartforecast.domain.forecastRecord.service.CommandForecastRecordService;
 import com.heartforecast.domain.forecastRecord.service.QueryForecastRecordService;
@@ -35,5 +36,10 @@ public class ForecastRecordController {
     return queryForecastRecordService.readAll(childId).stream()
         .map(ForecastRecordResponse::from)
         .toList();
+  }
+
+  @PutMapping("/forecastRecord")
+  public void updateForecastRecord(@RequestBody ForecastRecordUpdateRequest request) {
+    commandForecastRecordService.update(request);
   }
 }
