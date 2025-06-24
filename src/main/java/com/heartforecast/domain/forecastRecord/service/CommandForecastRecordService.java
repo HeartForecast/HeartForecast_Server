@@ -7,7 +7,6 @@ import com.heartforecast.domain.emotionType.service.QueryEmotionTypeService;
 import com.heartforecast.domain.forecast.domain.Forecast;
 import com.heartforecast.domain.forecast.service.QueryForecastService;
 import com.heartforecast.domain.forecastRecord.domain.ForecastRecord;
-import com.heartforecast.domain.forecastRecord.exception.ForecastRecordAlreadyExistsException;
 import com.heartforecast.domain.forecastRecord.exception.ForecastRecordInvalidDateTimeException;
 import com.heartforecast.domain.forecastRecord.presentation.dto.request.ForecastRecordCreateRequest;
 import com.heartforecast.domain.forecastRecord.service.implementation.ForecastRecordCreator;
@@ -21,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class CommandForecastRecordService {
 
   private final ForecastRecordCreator forecastRecordCreator;
+  private final QueryForecastRecordService queryForecastRecordService;
   private final QueryChildService queryChildService;
   private final QueryEmotionTypeService queryEmotionTypeService;
   private final QueryForecastService queryForecastService;
@@ -28,7 +28,9 @@ public class CommandForecastRecordService {
   public void create(ForecastRecordCreateRequest request) {
     Forecast forecast = queryForecastService.readOne(request.forecastId(), request.childId());
 
-    if (!forecast.getDate().equals(request.date()) || !forecast.getTimeZone().equals(request.timeZone())) throw new ForecastRecordInvalidDateTimeException();
+    if (!forecast.getDate().equals(request.date()) || forecast.getTimeZone().getOrder() != request.timeZone().getOrder()) throw new ForecastRecordInvalidDateTimeException();
+
+    queryForecastRecordService.existsByForecast(request.forecastId(), request.childId());
 
     Child child = queryChildService.readOne(request.childId());
     EmotionType emotionType = queryEmotionTypeService.readOne(request.emotionTypeId());
