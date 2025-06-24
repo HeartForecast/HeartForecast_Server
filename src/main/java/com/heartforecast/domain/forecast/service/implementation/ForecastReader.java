@@ -1,0 +1,20 @@
+package com.heartforecast.domain.forecast.service.implementation;
+
+import com.heartforecast.domain.child.domain.Child;
+import com.heartforecast.domain.forecast.domain.Forecast;
+import com.heartforecast.domain.forecast.domain.repository.ForecastRepository;
+import com.heartforecast.domain.forecast.exception.ForecastNotFoundException;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+public class ForecastReader {
+
+  private final ForecastRepository forecastRepository;
+
+  public Forecast findByChild(Long id, Child child) {
+    return forecastRepository.findByIdAndChild(id, child)
+        .orElseThrow(ForecastNotFoundException::new);
+  }
+}
