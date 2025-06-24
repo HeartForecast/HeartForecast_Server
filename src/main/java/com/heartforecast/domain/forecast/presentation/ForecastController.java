@@ -42,9 +42,4 @@ public class ForecastController {
   public void updateForecast(@RequestBody ForecastUpdateRequest request) {
     commandForecastService.update(request);
   }
-
-  @DeleteMapping("/{child-id}/{date}")
-  public void deleteForecast(@PathVariable("child-id") Long childId, @PathVariable LocalDate date) {
-    commandForecastService.delete(date, childId);
-  }
 }
