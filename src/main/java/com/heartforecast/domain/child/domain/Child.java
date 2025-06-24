@@ -43,7 +43,6 @@ public class Child {
   @CreatedDate
   private LocalDateTime createdAt;
 
-
   @Builder
   public Child(String username, LocalDate birthdate, Gender gender, String healthInfo, String inviteCode) {
     this.username = username;
