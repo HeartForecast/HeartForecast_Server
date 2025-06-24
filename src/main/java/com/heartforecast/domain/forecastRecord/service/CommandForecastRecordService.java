@@ -9,7 +9,9 @@ import com.heartforecast.domain.forecast.service.QueryForecastService;
 import com.heartforecast.domain.forecastRecord.domain.ForecastRecord;
 import com.heartforecast.domain.forecastRecord.exception.ForecastRecordInvalidDateTimeException;
 import com.heartforecast.domain.forecastRecord.presentation.dto.request.ForecastRecordCreateRequest;
+import com.heartforecast.domain.forecastRecord.presentation.dto.request.ForecastRecordUpdateRequest;
 import com.heartforecast.domain.forecastRecord.service.implementation.ForecastRecordCreator;
+import com.heartforecast.domain.forecastRecord.service.implementation.ForecastRecordUpdater;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class CommandForecastRecordService {
 
   private final ForecastRecordCreator forecastRecordCreator;
+  private final ForecastRecordUpdater forecastRecordUpdater;
   private final QueryForecastRecordService queryForecastRecordService;
   private final QueryChildService queryChildService;
   private final QueryEmotionTypeService queryEmotionTypeService;
@@ -44,5 +47,14 @@ public class CommandForecastRecordService {
         .memo(request.memo())
         .build();
     forecastRecordCreator.create(forecastRecord);
+  }
+
+  public void update(ForecastRecordUpdateRequest request) {
+    ForecastRecord forecastRecord = queryForecastRecordService.readOne(request.forecastRecordId(), request.childId());
+    EmotionType emotionType = queryEmotionTypeService.readOne(request.emotionTypeId());
+
+    queryForecastRecordService.overUpdateTimeExpire(request.forecastRecordId(), request.childId());
+
+    forecastRecordUpdater.update(forecastRecord, emotionType, request.memo());
   }
 }
