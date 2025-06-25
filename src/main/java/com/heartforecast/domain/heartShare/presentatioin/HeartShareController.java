@@ -35,4 +35,11 @@ public class HeartShareController {
         .map(HeartShareResponse::from)
         .toList();
   }
+
+  @GetMapping("/my")
+  public List<HeartShareResponse> getMyHeartShares() {
+    return queryHeartShareService.readAllByMine(getMemberId()).stream()
+        .map(HeartShareResponse::from)
+        .toList();
+  }
 }
