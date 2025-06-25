@@ -1,6 +1,7 @@
 package com.heartforecast.domain.heartShare.presentatioin;
 
 import com.heartforecast.domain.heartShare.presentatioin.dto.request.HeartShareCreateRequest;
+import com.heartforecast.domain.heartShare.presentatioin.dto.request.HeartShareUpdateRequest;
 import com.heartforecast.domain.heartShare.presentatioin.dto.response.HeartShareResponse;
 import com.heartforecast.domain.heartShare.service.CommandHeartShareService;
 import com.heartforecast.domain.heartShare.service.QueryHeartShareService;
@@ -41,5 +42,10 @@ public class HeartShareController {
     return queryHeartShareService.readAllByMine(getMemberId()).stream()
         .map(HeartShareResponse::from)
         .toList();
+  }
+
+  @PutMapping("/heartShare")
+  public void updateHeartShare(@RequestBody HeartShareUpdateRequest request) {
+    commandHeartShareService.update(request);
   }
 }
