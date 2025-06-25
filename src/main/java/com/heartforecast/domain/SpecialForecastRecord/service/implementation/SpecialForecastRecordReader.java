@@ -15,7 +15,7 @@ public class SpecialForecastRecordReader {
 
   private final SpecialForecastRecordRepository specialForecastRecordRepository;
 
-  public SpecialForecastRecord findByIdAndChild(Long id, Child child) {
+  public SpecialForecastRecord findByChild(Long id, Child child) {
     return specialForecastRecordRepository.findByIdAndChild(id, child)
         .orElseThrow(SpecialForecastRecordNotFoundException::new);
   }
