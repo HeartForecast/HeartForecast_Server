@@ -3,7 +3,9 @@ package com.heartforecast.domain.heartShare.service;
 
 import com.heartforecast.domain.heartShare.domain.HeartShare;
 import com.heartforecast.domain.heartShare.presentatioin.dto.request.HeartShareCreateRequest;
+import com.heartforecast.domain.heartShare.presentatioin.dto.request.HeartShareUpdateRequest;
 import com.heartforecast.domain.heartShare.service.implementation.HeartShareCreator;
+import com.heartforecast.domain.heartShare.service.implementation.HeartShareUpdater;
 import com.heartforecast.domain.user.domain.Users;
 import com.heartforecast.domain.user.service.QueryUserService;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class CommandHeartShareService {
 
   private final HeartShareCreator heartShareCreator;
+  private final HeartShareUpdater heartShareUpdater;
+  private final QueryHeartShareService queryHeartShareService;
   private final QueryUserService queryUserService;
 
   public void create(HeartShareCreateRequest request, Long userId) {
@@ -27,5 +31,11 @@ public class CommandHeartShareService {
         .content(request.content())
         .build();
     heartShareCreator.create(heartShare);
+  }
+
+  public void update(HeartShareUpdateRequest request) {
+    HeartShare heartShare = queryHeartShareService.readOne(request.heartShareId());
+
+    heartShareUpdater.update(heartShare, request.title(), request.content());
   }
 }
