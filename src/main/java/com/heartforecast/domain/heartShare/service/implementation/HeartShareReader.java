@@ -6,6 +6,8 @@ import com.heartforecast.domain.heartShare.exception.HeartShareNotFoundException
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class HeartShareReader {
@@ -15,5 +17,9 @@ public class HeartShareReader {
   public HeartShare findById(Long id) {
     return heartShareRepository.findById(id)
         .orElseThrow(HeartShareNotFoundException::new);
+  }
+
+  public List<HeartShare> findAll() {
+    return heartShareRepository.findAll();
   }
 }
