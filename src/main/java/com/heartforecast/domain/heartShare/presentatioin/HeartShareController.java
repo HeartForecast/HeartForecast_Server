@@ -46,7 +46,7 @@ public class HeartShareController {
 
   @PutMapping("/heartShare")
   public void updateHeartShare(@RequestBody HeartShareUpdateRequest request) {
-    commandHeartShareService.update(request);
+    commandHeartShareService.update(request, getMemberId());
   }
 
   @DeleteMapping("/{heartShare-id}")
