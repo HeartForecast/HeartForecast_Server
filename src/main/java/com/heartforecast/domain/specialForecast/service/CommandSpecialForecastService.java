@@ -46,6 +46,7 @@ public class CommandSpecialForecastService {
         .event(event)
         .child(child)
         .emotionType(emotionType)
+        .date(request.date())
         .memo(request.memo())
         .build();
     specialForecastCreator.create(specialForecast);
