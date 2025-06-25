@@ -7,6 +7,7 @@ import com.heartforecast.domain.heartShare.presentatioin.dto.request.HeartShareU
 import com.heartforecast.domain.heartShare.service.implementation.HeartShareCreator;
 import com.heartforecast.domain.heartShare.service.implementation.HeartShareDeleter;
 import com.heartforecast.domain.heartShare.service.implementation.HeartShareUpdater;
+import com.heartforecast.domain.heartShare.service.implementation.HeartShareValidator;
 import com.heartforecast.domain.user.domain.Users;
 import com.heartforecast.domain.user.service.QueryUserService;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,7 @@ public class CommandHeartShareService {
   private final HeartShareCreator heartShareCreator;
   private final HeartShareUpdater heartShareUpdater;
   private final HeartShareDeleter heartShareDeleter;
+  private final HeartShareValidator heartShareValidator;
   private final QueryHeartShareService queryHeartShareService;
   private final QueryUserService queryUserService;
 
@@ -35,15 +37,19 @@ public class CommandHeartShareService {
     heartShareCreator.create(heartShare);
   }
 
-  public void update(HeartShareUpdateRequest request) {
+  public void update(HeartShareUpdateRequest request, Long userId) {
     HeartShare heartShare = queryHeartShareService.readOne(request.heartShareId());
+
+    heartShareValidator.ownership(heartShare, userId);
 
     heartShareUpdater.update(heartShare, request.title(), request.content());
   }
 
   public void delete(Long heartShareId, Long userId) {
-    Users user = queryUserService.readOne(userId);
+    HeartShare heartShare = queryHeartShareService.readOne(heartShareId);
 
-    heartShareDeleter.delete(queryHeartShareService.findByUser(heartShareId, user));
+    heartShareValidator.ownership(heartShare, userId);
+
+    heartShareDeleter.delete(heartShare);
   }
 }
