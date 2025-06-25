@@ -1,6 +1,6 @@
-package com.heartforecast.domain.SpecialForecastRecord.domain.repository;
+package com.heartforecast.domain.specialForecastRecord.domain.repository;
 
-import com.heartforecast.domain.SpecialForecastRecord.domain.SpecialForecastRecord;
+import com.heartforecast.domain.specialForecastRecord.domain.SpecialForecastRecord;
 import com.heartforecast.domain.child.domain.Child;
 import com.heartforecast.domain.specialForecast.domain.SpecialForecast;
 import org.springframework.data.jpa.repository.JpaRepository;

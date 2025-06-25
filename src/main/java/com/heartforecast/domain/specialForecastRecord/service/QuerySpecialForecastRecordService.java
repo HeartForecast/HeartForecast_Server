@@ -1,7 +1,7 @@
-package com.heartforecast.domain.SpecialForecastRecord.service;
+package com.heartforecast.domain.specialForecastRecord.service;
 
-import com.heartforecast.domain.SpecialForecastRecord.domain.SpecialForecastRecord;
-import com.heartforecast.domain.SpecialForecastRecord.service.implementation.SpecialForecastRecordReader;
+import com.heartforecast.domain.specialForecastRecord.domain.SpecialForecastRecord;
+import com.heartforecast.domain.specialForecastRecord.service.implementation.SpecialForecastRecordReader;
 import com.heartforecast.domain.child.domain.Child;
 import com.heartforecast.domain.child.service.QueryChildService;
 import com.heartforecast.domain.specialForecast.service.implementation.SpecialForecastValidator;

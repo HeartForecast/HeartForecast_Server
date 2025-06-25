@@ -1,6 +1,6 @@
-package com.heartforecast.domain.SpecialForecastRecord.presentation.dto.response;
+package com.heartforecast.domain.specialForecastRecord.presentation.dto.response;
 
-import com.heartforecast.domain.SpecialForecastRecord.domain.SpecialForecastRecord;
+import com.heartforecast.domain.specialForecastRecord.domain.SpecialForecastRecord;
 
 import java.time.LocalDate;
 

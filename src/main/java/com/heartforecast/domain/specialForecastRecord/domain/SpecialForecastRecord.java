@@ -1,4 +1,4 @@
-package com.heartforecast.domain.SpecialForecastRecord.domain;
+package com.heartforecast.domain.specialForecastRecord.domain;
 
 import com.heartforecast.domain.child.domain.Child;
 import com.heartforecast.domain.emotionType.domain.EmotionType;

@@ -1,7 +1,7 @@
-package com.heartforecast.domain.SpecialForecastRecord.service.implementation;
+package com.heartforecast.domain.specialForecastRecord.service.implementation;
 
-import com.heartforecast.domain.SpecialForecastRecord.domain.repository.SpecialForecastRecordRepository;
-import com.heartforecast.domain.SpecialForecastRecord.exception.SpecialForecastRecordAlreadyExistsException;
+import com.heartforecast.domain.specialForecastRecord.domain.repository.SpecialForecastRecordRepository;
+import com.heartforecast.domain.specialForecastRecord.exception.SpecialForecastRecordAlreadyExistsException;
 import com.heartforecast.domain.specialForecast.domain.SpecialForecast;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

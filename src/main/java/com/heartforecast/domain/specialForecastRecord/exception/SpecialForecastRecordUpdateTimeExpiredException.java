@@ -1,4 +1,4 @@
-package com.heartforecast.domain.SpecialForecastRecord.exception;
+package com.heartforecast.domain.specialForecastRecord.exception;
 
 import com.heartforecast.common.exception.HeartForecastException;
 import org.springframework.http.HttpStatus;

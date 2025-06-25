@@ -1,10 +1,10 @@
-package com.heartforecast.domain.SpecialForecastRecord.presentation;
+package com.heartforecast.domain.specialForecastRecord.presentation;
 
-import com.heartforecast.domain.SpecialForecastRecord.presentation.dto.request.SpecialForecastRecordCreateRequest;
-import com.heartforecast.domain.SpecialForecastRecord.presentation.dto.request.SpecialForecastRecordUpdateRequest;
-import com.heartforecast.domain.SpecialForecastRecord.presentation.dto.response.SpecialForecastRecordResponse;
-import com.heartforecast.domain.SpecialForecastRecord.service.CommandSpecialForecastRecordService;
-import com.heartforecast.domain.SpecialForecastRecord.service.QuerySpecialForecastRecordService;
+import com.heartforecast.domain.specialForecastRecord.presentation.dto.request.SpecialForecastRecordCreateRequest;
+import com.heartforecast.domain.specialForecastRecord.presentation.dto.request.SpecialForecastRecordUpdateRequest;
+import com.heartforecast.domain.specialForecastRecord.presentation.dto.response.SpecialForecastRecordResponse;
+import com.heartforecast.domain.specialForecastRecord.service.CommandSpecialForecastRecordService;
+import com.heartforecast.domain.specialForecastRecord.service.QuerySpecialForecastRecordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

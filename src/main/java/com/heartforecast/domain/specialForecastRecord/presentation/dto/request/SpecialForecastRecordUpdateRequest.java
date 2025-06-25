@@ -1,4 +1,4 @@
-package com.heartforecast.domain.SpecialForecastRecord.presentation.dto.request;
+package com.heartforecast.domain.specialForecastRecord.presentation.dto.request;
 
 public record SpecialForecastRecordUpdateRequest(
     Long SpecialForecastRecordId,
