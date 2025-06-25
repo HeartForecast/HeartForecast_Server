@@ -3,6 +3,7 @@ package com.heartforecast.domain.heartShare.service;
 
 import com.heartforecast.domain.heartShare.domain.HeartShare;
 import com.heartforecast.domain.heartShare.service.implementation.HeartShareReader;
+import com.heartforecast.domain.user.domain.Users;
 import com.heartforecast.domain.user.service.QueryUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,10 @@ public class QueryHeartShareService {
 
   public HeartShare readOne(Long id) {
     return heartShareReader.findById(id);
+  }
+
+  public HeartShare findByUser(Long id, Users user) {
+    return heartShareReader.findByIdAndUser(id, user);
   }
 
   public List<HeartShare> readAll() {
