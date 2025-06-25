@@ -21,6 +21,6 @@ public class SpecialForecastRecordReader {
   }
 
   public List<SpecialForecastRecord> findAllByChild(Child child) {
-    return specialForecastRecordRepository.findAllByChild(child);
+    return specialForecastRecordRepository.findAllByChildOrderByDateAsc(child);
   }
 }
