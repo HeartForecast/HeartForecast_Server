@@ -48,4 +48,9 @@ public class HeartShareController {
   public void updateHeartShare(@RequestBody HeartShareUpdateRequest request) {
     commandHeartShareService.update(request);
   }
+
+  @DeleteMapping("/{heartShare-id}")
+  public void deleteHeartShare(@PathVariable("heartShare-id") Long heartShareId) {
+    commandHeartShareService.delete(heartShareId, getMemberId());
+  }
 }
