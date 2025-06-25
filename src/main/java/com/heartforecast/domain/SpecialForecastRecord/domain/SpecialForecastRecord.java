@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -34,16 +35,20 @@ public class SpecialForecastRecord {
   private EmotionType emotionType;
 
   @NotNull
+  private LocalDate date;
+
+  @NotNull
   private String memo;
 
   @CreatedDate
   private LocalDateTime createdAt;
 
   @Builder
-  public SpecialForecastRecord(SpecialForecast specialForecast, Child child, EmotionType emotionType, String memo) {
+  public SpecialForecastRecord(SpecialForecast specialForecast, Child child, EmotionType emotionType, LocalDate date, String memo) {
     this.specialForecast = specialForecast;
     this.child = child;
     this.emotionType = emotionType;
+    this.date = date;
     this.memo = memo;
   }
 

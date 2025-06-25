@@ -40,12 +40,13 @@ public class CommandSpecialForecastService {
     EmotionType emotionType = queryEmotionTypeService.readOne(request.emotionTypeId());
     Event event = queryEventService.findOneByChild(request.eventId(), request.childId());
 
-    specialForecastValidator.validate(event);
+    specialForecastValidator.existsByEvent(event);
 
     SpecialForecast specialForecast = SpecialForecast.builder()
         .event(event)
         .child(child)
         .emotionType(emotionType)
+        .date(request.date())
         .memo(request.memo())
         .build();
     specialForecastCreator.create(specialForecast);

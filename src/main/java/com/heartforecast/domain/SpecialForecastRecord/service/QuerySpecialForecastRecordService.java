@@ -4,6 +4,7 @@ import com.heartforecast.domain.SpecialForecastRecord.domain.SpecialForecastReco
 import com.heartforecast.domain.SpecialForecastRecord.service.implementation.SpecialForecastRecordReader;
 import com.heartforecast.domain.child.domain.Child;
 import com.heartforecast.domain.child.service.QueryChildService;
+import com.heartforecast.domain.specialForecast.service.implementation.SpecialForecastValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,17 +17,24 @@ import java.util.List;
 public class QuerySpecialForecastRecordService {
 
   private final SpecialForecastRecordReader specialForecastRecordReader;
+  private final SpecialForecastValidator specialForecastValidator;
   private final QueryChildService queryChildService;
 
   public SpecialForecastRecord readOne(Long specialForecastRecordId, Long childId) {
     Child child = queryChildService.readOne(childId);
 
-    return specialForecastRecordReader.findByIdAndChild(specialForecastRecordId, child);
+    return specialForecastRecordReader.findByChild(specialForecastRecordId, child);
   }
 
   public List<SpecialForecastRecord> readAll(Long childId) {
     Child child = queryChildService.readOne(childId);
 
     return specialForecastRecordReader.findAllByChild(child);
+  }
+
+  public void overUpdateTimeExpire(Long specialForecastRecordId, Long childId) {
+    Child child = queryChildService.readOne(childId);
+
+    specialForecastValidator.overUpdateTimeExpire(specialForecastRecordReader.findByChild(specialForecastRecordId, child));
   }
 }

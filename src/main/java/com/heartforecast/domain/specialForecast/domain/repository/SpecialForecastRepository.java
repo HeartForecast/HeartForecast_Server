@@ -13,7 +13,7 @@ import java.util.Optional;
 public interface SpecialForecastRepository extends JpaRepository<SpecialForecast, Long> {
   boolean existsByEvent(Event event);
   Optional<SpecialForecast> findByIdAndChild(Long id, Child child);
-  List<SpecialForecast> findAllByChild(Child child);
+  List<SpecialForecast> findAllByChildOrderByDateAsc(Child child);
   Optional<SpecialForecast> findByEvent(Event event);
   void deleteByEvent(Event event);
 }

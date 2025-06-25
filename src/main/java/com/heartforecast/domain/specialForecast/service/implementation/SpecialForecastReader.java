@@ -22,7 +22,7 @@ public class SpecialForecastReader {
   }
 
   public List<SpecialForecast> findAllByChild(Child child) {
-    return specialForecastRepository.findAllByChild(child);
+    return specialForecastRepository.findAllByChildOrderByDateAsc(child);
   }
 
   public SpecialForecast findByEvent(Event event) {

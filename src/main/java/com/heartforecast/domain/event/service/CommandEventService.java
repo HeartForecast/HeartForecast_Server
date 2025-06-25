@@ -47,7 +47,7 @@ public class CommandEventService {
   public void update(EventUpdateRequest request, Long userId) {
     Event event = queryEventService.findOneByUser(request.eventId(), userId);
 
-    specialForecastValidator.validate(event);
+    specialForecastValidator.existsByEvent(event);
 
     eventUpdater.update(event, request.date(), request.title(), request.description());
   }
