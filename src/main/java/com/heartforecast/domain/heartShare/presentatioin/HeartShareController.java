@@ -7,6 +7,8 @@ import com.heartforecast.domain.heartShare.service.QueryHeartShareService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static com.heartforecast.common.jwt.util.AuthenticationUtil.getMemberId;
 
 @RestController
@@ -25,5 +27,12 @@ public class HeartShareController {
   @GetMapping("/{heartShare-id}")
   public HeartShareResponse getHeartShare(@PathVariable("heartShare-id") Long heartShareId) {
     return HeartShareResponse.from(queryHeartShareService.readOne(heartShareId));
+  }
+
+  @GetMapping
+  public List<HeartShareResponse> getHeartShares() {
+    return queryHeartShareService.readAll().stream()
+        .map(HeartShareResponse::from)
+        .toList();
   }
 }
