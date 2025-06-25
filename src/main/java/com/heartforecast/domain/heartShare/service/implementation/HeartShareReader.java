@@ -27,4 +27,9 @@ public class HeartShareReader {
   public List<HeartShare> findAllByUser(Users user) {
     return heartShareRepository.findAllByUser(user);
   }
+
+  public HeartShare findByIdAndUser(Long id, Users user) {
+    return heartShareRepository.findByIdAndUser(id, user)
+        .orElseThrow(HeartShareNotFoundException::new);
+  }
 }
