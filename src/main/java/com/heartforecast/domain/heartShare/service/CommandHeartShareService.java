@@ -5,6 +5,7 @@ import com.heartforecast.domain.heartShare.domain.HeartShare;
 import com.heartforecast.domain.heartShare.presentatioin.dto.request.HeartShareCreateRequest;
 import com.heartforecast.domain.heartShare.presentatioin.dto.request.HeartShareUpdateRequest;
 import com.heartforecast.domain.heartShare.service.implementation.HeartShareCreator;
+import com.heartforecast.domain.heartShare.service.implementation.HeartShareDeleter;
 import com.heartforecast.domain.heartShare.service.implementation.HeartShareUpdater;
 import com.heartforecast.domain.user.domain.Users;
 import com.heartforecast.domain.user.service.QueryUserService;
@@ -19,6 +20,7 @@ public class CommandHeartShareService {
 
   private final HeartShareCreator heartShareCreator;
   private final HeartShareUpdater heartShareUpdater;
+  private final HeartShareDeleter heartShareDeleter;
   private final QueryHeartShareService queryHeartShareService;
   private final QueryUserService queryUserService;
 
@@ -37,5 +39,11 @@ public class CommandHeartShareService {
     HeartShare heartShare = queryHeartShareService.readOne(request.heartShareId());
 
     heartShareUpdater.update(heartShare, request.title(), request.content());
+  }
+
+  public void delete(Long heartShareId, Long userId) {
+    Users user = queryUserService.readOne(userId);
+
+    heartShareDeleter.delete(queryHeartShareService.findByUser(heartShareId, user));
   }
 }
