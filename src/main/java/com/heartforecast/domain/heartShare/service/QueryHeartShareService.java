@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -16,5 +18,9 @@ public class QueryHeartShareService {
 
   public HeartShare readOne(Long id) {
     return heartShareReader.findById(id);
+  }
+
+  public List<HeartShare> readAll() {
+    return heartShareReader.findAll();
   }
 }
