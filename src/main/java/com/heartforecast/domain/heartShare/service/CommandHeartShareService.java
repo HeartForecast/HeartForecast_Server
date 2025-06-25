@@ -2,8 +2,8 @@ package com.heartforecast.domain.heartShare.service;
 
 
 import com.heartforecast.domain.heartShare.domain.HeartShare;
-import com.heartforecast.domain.heartShare.presentatioin.dto.request.HeartShareCreateRequest;
-import com.heartforecast.domain.heartShare.presentatioin.dto.request.HeartShareUpdateRequest;
+import com.heartforecast.domain.heartShare.presentation.dto.request.HeartShareCreateRequest;
+import com.heartforecast.domain.heartShare.presentation.dto.request.HeartShareUpdateRequest;
 import com.heartforecast.domain.heartShare.service.implementation.HeartShareCreator;
 import com.heartforecast.domain.heartShare.service.implementation.HeartShareDeleter;
 import com.heartforecast.domain.heartShare.service.implementation.HeartShareUpdater;
