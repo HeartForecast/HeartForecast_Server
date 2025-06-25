@@ -2,11 +2,14 @@ package com.heartforecast.domain.specialForecast.presentation.dto.response;
 
 import com.heartforecast.domain.specialForecast.domain.SpecialForecast;
 
+import java.time.LocalDate;
+
 public record SpecialForecastResponse(
     Long id,
     Long eventId,
     Long childId,
     Long emotionTypeId,
+    LocalDate date,
     String memo
 ) {
   public static SpecialForecastResponse from(SpecialForecast specialForecast) {
@@ -15,6 +18,7 @@ public record SpecialForecastResponse(
         specialForecast.getEvent().getId(),
         specialForecast.getChild().getId(),
         specialForecast.getEmotionType().getId(),
+        specialForecast.getDate(),
         specialForecast.getMemo()
     );
   }
