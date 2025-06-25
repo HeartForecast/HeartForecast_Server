@@ -1,0 +1,31 @@
+package com.heartforecast.domain.heartShare.service;
+
+
+import com.heartforecast.domain.heartShare.domain.HeartShare;
+import com.heartforecast.domain.heartShare.presentatioin.dto.request.HeartShareCreateRequest;
+import com.heartforecast.domain.heartShare.service.implementation.HeartShareCreator;
+import com.heartforecast.domain.user.domain.Users;
+import com.heartforecast.domain.user.service.QueryUserService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@RequiredArgsConstructor
+@Transactional
+public class CommandHeartShareService {
+
+  private final HeartShareCreator heartShareCreator;
+  private final QueryUserService queryUserService;
+
+  public void create(HeartShareCreateRequest request, Long userId) {
+    Users user = queryUserService.readOne(userId);
+
+    HeartShare heartShare = HeartShare.builder()
+        .user(user)
+        .title(request.title())
+        .content(request.content())
+        .build();
+    heartShareCreator.create(heartShare);
+  }
+}
