@@ -47,9 +47,9 @@ public class CommandSpecialForecastRecordService {
 
   public void update(SpecialForecastRecordUpdateRequest request) {
     EmotionType emotionType = queryEmotionTypeService.readOne(request.emotionTypeId());
-    SpecialForecastRecord specialForecastRecord = querySpecialForecastRecordService.readOne(request.SpecialForecastRecordId(), request.childId());
+    SpecialForecastRecord specialForecastRecord = querySpecialForecastRecordService.readOne(request.specialForecastRecordId(), request.childId());
 
-    querySpecialForecastRecordService.overUpdateTimeExpire(request.SpecialForecastRecordId(), request.childId());
+    querySpecialForecastRecordService.overUpdateTimeExpire(request.specialForecastRecordId(), request.childId());
 
     specialForecastRecordUpdater.update(specialForecastRecord, emotionType, request.memo());
   }
