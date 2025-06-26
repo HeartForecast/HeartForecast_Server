@@ -42,6 +42,7 @@ jobs:
           echo "KAKAO_CLIENT_ID=${{ secrets.KAKAO_CLIENT_ID }}" >> env/spring.env
           echo "KAKAO_CLIENT_SECRET=${{ secrets.KAKAO_CLIENT_SECRET }}" >> env/spring.env
           echo "KAKAO_PROD_REDIRECT_URL=${{ secrets.KAKAO_PROD_REDIRECT_URL }}" >> env/spring.env
+          echo "SERVER_URL"=${{ secrets.SERVER_URL }}" >> env/spring.env
 
       - name: Build with Gradle Wrapper
         run: ./gradlew build
