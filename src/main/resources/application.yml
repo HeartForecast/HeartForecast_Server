@@ -81,4 +81,4 @@ spring:
     time-zone: Asia/Seoul
 
 server:
-  url: http://localhost:8080
+  url: ${SERVER_URL}
