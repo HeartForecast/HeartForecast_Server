@@ -1,22 +1,24 @@
 package com.heartForecast.common.config;
 
-import io.swagger.v3.oas.models.Components;
-import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.info.Info;
-import io.swagger.v3.oas.models.security.SecurityRequirement;
-import io.swagger.v3.oas.models.security.SecurityScheme;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import io.swagger.v3.oas.models.*;
+import io.swagger.v3.oas.models.info.*;
+import io.swagger.v3.oas.models.security.*;
+import io.swagger.v3.oas.models.servers.Server;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.context.annotation.*;
+import java.util.*;
 
 @Configuration
 public class SwaggerConfig {
 
+    @Value("${server.url}")
+    private String serverUrl;
+
     @Bean
     public OpenAPI customOpenAPI() {
-
-        OpenAPI openAPI = new OpenAPI();
-
-        openAPI.info(new Info()
+        return new OpenAPI()
+            .servers(Collections.singletonList(new Server().url(serverUrl).description("API Server")))
+            .info(new Info()
                 .title("HeartForecast")
                 .description("이 API는 자체 로그인과 소셜 로그인(구글, 네이버, 카카오)을 지원합니다. "
                     + "엑세스 토큰과 리프레시 토큰은 HttpOnly 쿠키로 반환됩니다.\n\n"
@@ -39,11 +41,9 @@ public class SwaggerConfig {
                     + "| 401 | UNAUTHENTICATED_ACCESS | 인증이 필요합니다. |\n"
                     + "| 401 | SECURITY_UNKNOWN | 시큐리티에서 알 수 없는 에러가 발생했습니다. |\n"
                     + "| 403 | ACCESS_DENIED | 권한이 필요합니다. |\n"
-
                     + "| 403 | HEART_SHARE_ACCESS_DENIED | 해당 마음공유에 접근 권한이 없습니다. |\n"
                     + "| 403 | FORECAST_RECORD_UPDATE_TIME_EXPIRED | 예보 기록은 생성 후 24시간 이내에만 수정할 수 있습니다. |\n"
                     + "| 403 | SPECIAL_FORECAST_RECORD_UPDATE_TIME_EXPIRED | 특보 기록은 생성 후 24시간 이내에만 수정할 수 있습니다. |\n"
-
                     + "| 404 | CHILD_NOT_FOUND | 아이를 찾을 수 없습니다. |\n"
                     + "| 404 | CHILD_RELATION_NOT_FOUND | 아이와의 관계를 찾을 수 없습니다. |\n"
                     + "| 404 | EMOTION_TYPE_NOT_FOUND | 감정 종류를 찾을 수 없습니다. |\n"
@@ -54,7 +54,6 @@ public class SwaggerConfig {
                     + "| 404 | SPECIAL_FORECAST_NOT_FOUND | 특보를 찾을 수 없습니다. |\n"
                     + "| 404 | SPECIAL_FORECAST_RECORD_NOT_FOUND | 특보 기록을 찾을 수 없습니다. |\n"
                     + "| 404 | USER_NOT_FOUND | 유저를 찾을 수 없습니다. |\n"
-
                     + "| 409 | DUPLICATED_CHILD_RELATION | 이미 존재하는 돌봄관계입니다. |\n"
                     + "| 409 | FORECAST_ALREADY_EXISTS | 해당 날짜·시간대 예보가 이미 존재합니다. |\n"
                     + "| 409 | FORECAST_RECORD_ALREADY_EXISTS | 해당 예보로 생성된 예보 기록이 이미 존재합니다. |\n"
@@ -73,14 +72,13 @@ public class SwaggerConfig {
                     + "}\n"
                     + "```"))
             .addSecurityItem(new SecurityRequirement().addList("jwtAuth"))
-                .components(new Components()
-                        .addSecuritySchemes("jwtAuth", new SecurityScheme()
-                                .name("JWT Authentication")
-                                .type(SecurityScheme.Type.HTTP)
-                                .scheme("bearer")
-                                .bearerFormat("JWT")
-                                .description("엑세스 토큰과 리프레시 토큰은 HttpOnly 쿠키로 설정됩니다. "
-                                        + "API 호출 시 클라이언트는 쿠키로 인증이 진행됩니다.")));
-        return openAPI;
+            .components(new Components()
+                .addSecuritySchemes("jwtAuth", new SecurityScheme()
+                    .name("JWT Authentication")
+                    .type(SecurityScheme.Type.HTTP)
+                    .scheme("bearer")
+                    .bearerFormat("JWT")
+                    .description("엑세스 토큰과 리프레시 토큰은 HttpOnly 쿠키로 설정됩니다. "
+                        + "API 호출 시 클라이언트는 쿠키로 인증이 진행됩니다.")));
     }
 }
