@@ -27,4 +27,8 @@ public class StatisticReader {
   public List<Object[]> countEmotionGroupByName(Child child, LocalDate startDate, LocalDate endDate) {
     return forecastRecordRepository.countEmotionsByNameInPeriod(child, startDate, endDate);
   }
+
+  public Double getAverageTemperature(Child child, LocalDate startDate, LocalDate endDate) {
+    return forecastRecordRepository.findAverageTemperatureByChildAndDateRange(child, startDate, endDate);
+  }
 }
