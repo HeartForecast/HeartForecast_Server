@@ -1,9 +1,6 @@
 package com.heartForecast.domain.statistic.presentation;
 
-import com.heartForecast.domain.statistic.presentation.dto.response.AvgTempResponse;
-import com.heartForecast.domain.statistic.presentation.dto.response.DateTempResponse;
-import com.heartForecast.domain.statistic.presentation.dto.response.EmotionRatioResponse;
-import com.heartForecast.domain.statistic.presentation.dto.response.TimeZoneEmotionGroupResponse;
+import com.heartForecast.domain.statistic.presentation.dto.response.*;
 import com.heartForecast.domain.statistic.service.QueryStatisticService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -59,5 +56,14 @@ public class StatisticController {
       @Parameter(description = "시작 날짜") @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
       @Parameter(description = "종료 날짜") @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
     return queryStatisticService.getAverageTemperature(childId, startDate, endDate);
+  }
+
+  @Operation(summary = "감정별 예외 오차율 조회", description = "해당 아이의 기간 내 감정별 발생 횟수 대비 평균 대비 오차율을 반환합니다.")
+  @GetMapping("/{childId}/emotions/error-rate")
+  public List<EmotionErrorRateResponse> getEmotionErrorRates(
+      @Parameter(description = "조회할 아이 ID") @PathVariable Long childId,
+      @Parameter(description = "시작 날짜") @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+      @Parameter(description = "종료 날짜") @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+    return queryStatisticService.getEmotionErrorRates(childId, startDate, endDate);
   }
 }
