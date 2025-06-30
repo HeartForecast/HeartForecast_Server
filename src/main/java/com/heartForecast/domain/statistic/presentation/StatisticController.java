@@ -1,6 +1,7 @@
 package com.heartForecast.domain.statistic.presentation;
 
 import com.heartForecast.domain.statistic.presentation.dto.response.DateTempResponse;
+import com.heartForecast.domain.statistic.presentation.dto.response.TimeZoneEmotionGroupResponse;
 import com.heartForecast.domain.statistic.service.QueryStatisticService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -27,5 +28,15 @@ public class StatisticController {
       @Parameter(description = "시작 날짜") @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
       @Parameter(description = "종료 날짜") @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
     return queryStatisticService.getDailyAverageTemperature(childId, startDate, endDate);
+  }
+
+  @Operation(summary = "시간대별 감정 분포 통계 조회")
+  @GetMapping("/{childId}/emotions/timezones")
+  public List<TimeZoneEmotionGroupResponse> getTimeZoneEmotionStats(
+      @PathVariable Long childId,
+      @RequestParam LocalDate startDate,
+      @RequestParam LocalDate endDate
+  ) {
+    return queryStatisticService.getTimeZoneEmotionDistribution(childId, startDate, endDate);
   }
 }
