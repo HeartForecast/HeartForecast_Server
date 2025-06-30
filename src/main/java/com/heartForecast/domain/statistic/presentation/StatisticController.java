@@ -1,6 +1,7 @@
 package com.heartForecast.domain.statistic.presentation;
 
 import com.heartForecast.domain.statistic.presentation.dto.response.DateTempResponse;
+import com.heartForecast.domain.statistic.presentation.dto.response.EmotionRatioResponse;
 import com.heartForecast.domain.statistic.presentation.dto.response.TimeZoneEmotionGroupResponse;
 import com.heartForecast.domain.statistic.service.QueryStatisticService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -38,5 +39,15 @@ public class StatisticController {
       @RequestParam LocalDate endDate
   ) {
     return queryStatisticService.getTimeZoneEmotionDistribution(childId, startDate, endDate);
+  }
+
+  @Operation(summary = "감정별 비율 통계 조회")
+  @GetMapping("/{childId}/emotions/ratio")
+  public List<EmotionRatioResponse> getEmotionRatioStats(
+      @PathVariable Long childId,
+      @RequestParam LocalDate startDate,
+      @RequestParam LocalDate endDate
+  ) {
+    return queryStatisticService.getEmotionRatioStats(childId, startDate, endDate);
   }
 }
