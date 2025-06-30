@@ -79,4 +79,25 @@ public class QueryStatisticService {
 
     return new AvgTempResponse(avgTemp);
   }
+
+  public List<EmotionErrorRateResponse> getEmotionErrorRates(Long childId, LocalDate startDate, LocalDate endDate) {
+    Child child = queryChildService.readOne(childId);
+
+    List<Object[]> rawCounts = statisticReader.countEmotionGroupByName(child, startDate, endDate);
+
+    long totalCount = rawCounts.stream()
+        .mapToLong(r -> (Long) r[1])
+        .sum();
+
+    double avgCount = rawCounts.isEmpty() ? 0 : (double) totalCount / rawCounts.size();
+
+    return rawCounts.stream()
+        .map(r -> {
+          String emotion = (String) r[0];
+          Long count = (Long) r[1];
+          double errorRate = avgCount == 0 ? 0 : (count - avgCount) / avgCount;
+          return new EmotionErrorRateResponse(emotion, count, Math.round(errorRate * 1000) / 1000.0);
+        })
+        .toList();
+  }
 }
