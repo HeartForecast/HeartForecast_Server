@@ -2,10 +2,7 @@ package com.heartForecast.domain.statistic.service;
 
 import com.heartForecast.domain.child.domain.Child;
 import com.heartForecast.domain.child.service.QueryChildService;
-import com.heartForecast.domain.statistic.presentation.dto.response.DateTempResponse;
-import com.heartForecast.domain.statistic.presentation.dto.response.EmotionCountResponse;
-import com.heartForecast.domain.statistic.presentation.dto.response.TimeZoneEmotionCountResponse;
-import com.heartForecast.domain.statistic.presentation.dto.response.TimeZoneEmotionGroupResponse;
+import com.heartForecast.domain.statistic.presentation.dto.response.*;
 import com.heartForecast.domain.statistic.service.implementation.StatisticReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -45,6 +42,24 @@ public class QueryStatisticService {
         ))
         .entrySet().stream()
         .map(e -> new TimeZoneEmotionGroupResponse(e.getKey(), e.getValue()))
+        .toList();
+  }
+
+  public List<EmotionRatioResponse> getEmotionRatioStats(Long childId, LocalDate startDate, LocalDate endDate) {
+    Child child = queryChildService.readOne(childId);
+    List<Object[]> rawCounts = statisticReader.countEmotionGroupByName(child, startDate, endDate);
+
+    long total = rawCounts.stream()
+        .mapToLong(r -> (Long) r[1])
+        .sum();
+
+    return rawCounts.stream()
+        .map(r -> {
+          String name = (String) r[0];
+          Long count = (Long) r[1];
+          double ratio = total == 0 ? 0 : ((double) count / total);
+          return new EmotionRatioResponse(name, count, Math.round(ratio * 1000) / 1000.0);
+        })
         .toList();
   }
 }
