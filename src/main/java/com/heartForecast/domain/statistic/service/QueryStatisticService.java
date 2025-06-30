@@ -67,11 +67,8 @@ public class QueryStatisticService {
 
   public AvgTempResponse getAverageTemperature(Long childId, LocalDate startDate, LocalDate endDate) {
     Child child = queryChildService.readOne(childId);
-
     Double avgTemp = statisticReader.getAverageTemperature(child, startDate, endDate);
-    if (avgTemp == null) {
-      avgTemp = 0.0;
-    }
+    if (avgTemp == null) avgTemp = 0.0;
 
     avgTemp = BigDecimal.valueOf(avgTemp)
         .setScale(1, RoundingMode.HALF_UP)
@@ -82,7 +79,6 @@ public class QueryStatisticService {
 
   public List<EmotionErrorRateResponse> getEmotionErrorRates(Long childId, LocalDate startDate, LocalDate endDate) {
     Child child = queryChildService.readOne(childId);
-
     List<Object[]> rawCounts = statisticReader.countEmotionGroupByName(child, startDate, endDate);
 
     long totalCount = rawCounts.stream()
