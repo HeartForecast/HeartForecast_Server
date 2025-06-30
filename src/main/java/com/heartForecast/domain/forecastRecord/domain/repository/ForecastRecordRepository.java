@@ -58,4 +58,17 @@ public interface ForecastRecordRepository extends JpaRepository<ForecastRecord, 
       @Param("startDate") LocalDate startDate,
       @Param("endDate") LocalDate endDate
   );
+
+  @Query("""
+    SELECT AVG(et.temp)
+    FROM ForecastRecord fr
+    JOIN EmotionType et ON fr.emotionType = et
+    WHERE fr.child = :child
+    AND fr.date BETWEEN :startDate AND :endDate
+    """)
+  Double findAverageTemperatureByChildAndDateRange(
+      @Param("child") Child child,
+      @Param("startDate") LocalDate startDate,
+      @Param("endDate") LocalDate endDate
+  );
 }
