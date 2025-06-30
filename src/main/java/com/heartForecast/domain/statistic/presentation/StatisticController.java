@@ -1,5 +1,6 @@
 package com.heartForecast.domain.statistic.presentation;
 
+import com.heartForecast.domain.statistic.presentation.dto.response.AvgTempResponse;
 import com.heartForecast.domain.statistic.presentation.dto.response.DateTempResponse;
 import com.heartForecast.domain.statistic.presentation.dto.response.EmotionRatioResponse;
 import com.heartForecast.domain.statistic.presentation.dto.response.TimeZoneEmotionGroupResponse;
@@ -31,7 +32,7 @@ public class StatisticController {
     return queryStatisticService.getDailyAverageTemperature(childId, startDate, endDate);
   }
 
-  @Operation(summary = "시간대별 감정 분포 통계 조회")
+  @Operation(summary = "시간대별 감정 분포 통계 조회", description = "해당 아이의 기간 내 시간대별 감정 분포 통계를 반환합니다.")
   @GetMapping("/{childId}/emotions/timezones")
   public List<TimeZoneEmotionGroupResponse> getTimeZoneEmotionStats(
       @PathVariable Long childId,
@@ -41,7 +42,7 @@ public class StatisticController {
     return queryStatisticService.getTimeZoneEmotionDistribution(childId, startDate, endDate);
   }
 
-  @Operation(summary = "감정별 비율 통계 조회")
+  @Operation(summary = "감정별 비율 통계 조회", description = "해당 아이의 기간 내 감정별 비율 통계를 반환합니다.")
   @GetMapping("/{childId}/emotions/ratio")
   public List<EmotionRatioResponse> getEmotionRatioStats(
       @PathVariable Long childId,
@@ -49,5 +50,14 @@ public class StatisticController {
       @RequestParam LocalDate endDate
   ) {
     return queryStatisticService.getEmotionRatioStats(childId, startDate, endDate);
+  }
+
+  @Operation(summary = "전체 기간 감정 온도 평균 조회", description = "해당 아이의 기간 내 전체 평균 감정 온도를 반환합니다.")
+  @GetMapping("/{childId}/temperature/average")
+  public AvgTempResponse getAverageTemperature(
+      @Parameter(description = "조회할 아이 ID") @PathVariable Long childId,
+      @Parameter(description = "시작 날짜") @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+      @Parameter(description = "종료 날짜") @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+    return queryStatisticService.getAverageTemperature(childId, startDate, endDate);
   }
 }
