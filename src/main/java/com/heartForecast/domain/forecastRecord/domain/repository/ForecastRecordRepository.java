@@ -39,8 +39,21 @@ public interface ForecastRecordRepository extends JpaRepository<ForecastRecord, 
     AND fr.date BETWEEN :startDate AND :endDate
     GROUP BY fr.timeZone, fr.emotionType.name
     ORDER BY fr.timeZone
-""")
+    """)
   List<TimeZoneEmotionCountResponse> findEmotionCountByTimeZone(
+      @Param("child") Child child,
+      @Param("startDate") LocalDate startDate,
+      @Param("endDate") LocalDate endDate
+  );
+
+  @Query("""
+    SELECT fr.emotionType.name, COUNT(fr)
+    FROM ForecastRecord fr
+    WHERE fr.child = :child
+      AND fr.date BETWEEN :startDate AND :endDate
+    GROUP BY fr.emotionType.name
+    """)
+  List<Object[]> countEmotionsByNameInPeriod(
       @Param("child") Child child,
       @Param("startDate") LocalDate startDate,
       @Param("endDate") LocalDate endDate
