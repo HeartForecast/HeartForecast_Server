@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -61,5 +63,20 @@ public class QueryStatisticService {
           return new EmotionRatioResponse(name, count, Math.round(ratio * 1000) / 1000.0);
         })
         .toList();
+  }
+
+  public AvgTempResponse getAverageTemperature(Long childId, LocalDate startDate, LocalDate endDate) {
+    Child child = queryChildService.readOne(childId);
+
+    Double avgTemp = statisticReader.getAverageTemperature(child, startDate, endDate);
+    if (avgTemp == null) {
+      avgTemp = 0.0;
+    }
+
+    avgTemp = BigDecimal.valueOf(avgTemp)
+        .setScale(1, RoundingMode.HALF_UP)
+        .doubleValue();
+
+    return new AvgTempResponse(avgTemp);
   }
 }
