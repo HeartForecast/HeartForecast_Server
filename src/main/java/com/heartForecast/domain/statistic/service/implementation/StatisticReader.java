@@ -3,6 +3,7 @@ package com.heartForecast.domain.statistic.service.implementation;
 import com.heartForecast.domain.child.domain.Child;
 import com.heartForecast.domain.forecastRecord.domain.repository.ForecastRecordRepository;
 import com.heartForecast.domain.statistic.presentation.dto.response.DateTempResponse;
+import com.heartForecast.domain.statistic.presentation.dto.response.TimeZoneEmotionCountResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,5 +18,9 @@ public class StatisticReader {
 
   public List<DateTempResponse> getDailyAverageTemperature(Child child, LocalDate startDate, LocalDate endDate) {
     return forecastRecordRepository.findDailyAverageTemperature(child, startDate, endDate);
+  }
+
+  public List<TimeZoneEmotionCountResponse> getEmotionCountByTimeZone(Child child, LocalDate startDate, LocalDate endDate) {
+    return forecastRecordRepository.findEmotionCountByTimeZone(child, startDate, endDate);
   }
 }
