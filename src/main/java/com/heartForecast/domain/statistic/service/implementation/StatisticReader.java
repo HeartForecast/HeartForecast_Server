@@ -23,4 +23,8 @@ public class StatisticReader {
   public List<TimeZoneEmotionCountResponse> getEmotionCountByTimeZone(Child child, LocalDate startDate, LocalDate endDate) {
     return forecastRecordRepository.findEmotionCountByTimeZone(child, startDate, endDate);
   }
+
+  public List<Object[]> countEmotionGroupByName(Child child, LocalDate startDate, LocalDate endDate) {
+    return forecastRecordRepository.countEmotionsByNameInPeriod(child, startDate, endDate);
+  }
 }
