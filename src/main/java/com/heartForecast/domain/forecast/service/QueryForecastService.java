@@ -46,4 +46,8 @@ public class QueryForecastService {
   public void existsByDateAndTimeZone(Long childId, LocalDate date, TimeZone timeZone) {
     forecastValidator.existsByChildAndDateAndTimeZone(queryChildService.readOne(childId), date, timeZone);
   }
+
+  public boolean hasForecastRecord(Long id, Long childId) {
+    return forecastReader.existsByForecast(forecastReader.findByChild(id, queryChildService.readOne(childId)));
+  }
 }
