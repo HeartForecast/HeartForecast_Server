@@ -47,6 +47,14 @@ public class ForecastController {
         .toList();
   }
 
+  @Operation(summary = "예보 기록 존재 여부 확인", description = "해당 아이 ID와 예보 ID로 예보 기록(ForecastRecord)의 존재 여부를 확인합니다.")
+  @GetMapping("/{child-id}/{forecast-id}/exists")
+  public boolean checkForecastRecordExist(
+      @PathVariable("child-id") Long childId,
+      @PathVariable("forecast-id") Long forecastId) {
+    return queryForecastService.hasForecastRecord(forecastId, childId);
+  }
+
   @Operation(summary = "예보 정보 수정", description = "기존 예보 정보를 수정합니다.")
   @PutMapping("/forecast")
   public void updateForecast(@RequestBody ForecastUpdateRequest request) {
