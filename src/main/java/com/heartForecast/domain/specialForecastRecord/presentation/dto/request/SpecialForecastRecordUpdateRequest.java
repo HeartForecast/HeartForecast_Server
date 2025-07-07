@@ -1,7 +1,9 @@
 package com.heartForecast.domain.specialForecastRecord.presentation.dto.request;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.media.Schema;
 
+@Hidden
 @Schema(description = "특보 기록 수정 요청 DTO")
 public record SpecialForecastRecordUpdateRequest(
     @Schema(description = "특보 기록 ID", example = "25")

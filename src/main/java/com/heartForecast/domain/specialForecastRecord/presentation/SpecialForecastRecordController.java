@@ -5,6 +5,7 @@ import com.heartForecast.domain.specialForecastRecord.presentation.dto.request.S
 import com.heartForecast.domain.specialForecastRecord.presentation.dto.response.SpecialForecastRecordResponse;
 import com.heartForecast.domain.specialForecastRecord.service.CommandSpecialForecastRecordService;
 import com.heartForecast.domain.specialForecastRecord.service.QuerySpecialForecastRecordService;
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Hidden
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/specialForecastRecords")

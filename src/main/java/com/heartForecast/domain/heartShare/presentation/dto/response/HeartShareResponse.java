@@ -1,8 +1,10 @@
 package com.heartForecast.domain.heartShare.presentation.dto.response;
 
 import com.heartForecast.domain.heartShare.domain.HeartShare;
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.media.Schema;
 
+@Hidden
 @Schema(description = "마음공유 응답 DTO")
 public record HeartShareResponse(
     @Schema(description = "마음공유 ID", example = "5")

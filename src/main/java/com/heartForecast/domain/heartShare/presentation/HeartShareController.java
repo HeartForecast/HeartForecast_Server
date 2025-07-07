@@ -5,6 +5,7 @@ import com.heartForecast.domain.heartShare.presentation.dto.request.HeartShareUp
 import com.heartForecast.domain.heartShare.presentation.dto.response.HeartShareResponse;
 import com.heartForecast.domain.heartShare.service.CommandHeartShareService;
 import com.heartForecast.domain.heartShare.service.QueryHeartShareService;
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import java.util.List;
 
 import static com.heartForecast.common.jwt.util.AuthenticationUtil.getMemberId;
 
+@Hidden
 @Tag(name = "마음공유 API")
 @RestController
 @RequiredArgsConstructor

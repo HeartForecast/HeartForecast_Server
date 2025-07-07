@@ -1,8 +1,10 @@
 package com.heartForecast.domain.event.presentation.dto.response;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.LocalDate;
 
+@Hidden
 @Schema(description = "이벤트 응답 DTO")
 public record EventResponse(
     @Schema(description = "이벤트 ID", example = "10")

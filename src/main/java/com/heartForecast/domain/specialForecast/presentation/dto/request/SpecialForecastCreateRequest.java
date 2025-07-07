@@ -1,9 +1,11 @@
 package com.heartForecast.domain.specialForecast.presentation.dto.request;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.time.LocalDate;
 
+@Hidden
 @Schema(description = "특보 생성 요청 DTO")
 public record SpecialForecastCreateRequest(
     @Schema(description = "이벤트 ID", example = "10")
