@@ -6,6 +6,7 @@ import com.heartForecast.domain.event.presentation.dto.request.EventUpdateReques
 import com.heartForecast.domain.event.presentation.dto.response.EventResponse;
 import com.heartForecast.domain.event.service.CommandEventService;
 import com.heartForecast.domain.event.service.QueryEventService;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,7 @@ import static com.heartForecast.common.jwt.util.AuthenticationUtil.getMemberId;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
+@Hidden
 @Tag(name = "이벤트 API")
 @RestController
 @RequiredArgsConstructor
