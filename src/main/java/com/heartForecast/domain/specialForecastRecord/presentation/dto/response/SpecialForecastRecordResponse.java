@@ -1,10 +1,12 @@
 package com.heartForecast.domain.specialForecastRecord.presentation.dto.response;
 
 import com.heartForecast.domain.specialForecastRecord.domain.SpecialForecastRecord;
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.time.LocalDate;
 
+@Hidden
 @Schema(description = "특보 기록 응답 DTO")
 public record SpecialForecastRecordResponse(
     @Schema(description = "특보 기록 ID", example = "25")
