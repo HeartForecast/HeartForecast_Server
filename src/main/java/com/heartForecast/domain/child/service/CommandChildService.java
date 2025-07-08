@@ -28,7 +28,7 @@ public class CommandChildService {
         .birthdate(request.birthdate())
         .gender(request.gender())
         .healthInfo(request.healthInfo())
-        .inviteCode(RandomStringUtils.randomAlphanumeric(6))
+        .inviteCode(RandomStringUtils.randomNumeric(6))
         .build();
     return childCreator.create(child);
   }

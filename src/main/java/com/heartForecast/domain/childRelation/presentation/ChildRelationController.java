@@ -3,8 +3,6 @@ package com.heartForecast.domain.childRelation.presentation;
 import com.heartForecast.domain.child.presentation.dto.response.ChildResponse;
 import com.heartForecast.domain.childRelation.domain.ChildRelation;
 import com.heartForecast.domain.childRelation.presentation.dto.request.ChildRelationJoinRequest;
-import com.heartForecast.domain.childRelation.presentation.dto.request.ChildRelationUpdateRequest;
-import com.heartForecast.domain.childRelation.presentation.dto.response.ChildRelationResponse;
 import com.heartForecast.domain.childRelation.service.CommandChildRelationService;
 import com.heartForecast.domain.childRelation.service.QueryChildRelationService;
 import lombok.RequiredArgsConstructor;
@@ -35,29 +33,17 @@ public class ChildRelationController {
 
   @Operation(summary = "특정 아이 돌봄관계 조회", description = "아이 ID를 통해 해당 아이의 돌봄관계를 조회합니다.")
   @GetMapping("/{child-id}")
-  public ChildRelationResponse getChildRelation(@PathVariable("child-id") Long childId) {
+  public ChildResponse getChildRelation(@PathVariable("child-id") Long childId) {
     ChildRelation relation = queryChildRelationService.readOne(childId, getMemberId());
-    return ChildRelationResponse.of(
-        ChildResponse.from(relation.getChild()),
-        relation.getRole()
-    );
+    return ChildResponse.from(relation.getChild());
   }
 
   @Operation(summary = "전체 돌봄관계 목록 조회", description = "현재 사용자의 모든 돌봄관계 목록을 조회합니다.")
   @GetMapping
-  public List<ChildRelationResponse> getChildRelations() {
+  public List<ChildResponse> getChildRelations() {
     return queryChildRelationService.readAll(getMemberId()).stream()
-        .map(relation -> ChildRelationResponse.of(
-            ChildResponse.from(relation.getChild()),
-            relation.getRole()
-        ))
+        .map(relation -> ChildResponse.from(relation.getChild()))
         .collect(toList());
-  }
-
-  @Operation(summary = "돌봄관계 정보 수정", description = "돌봄관계의 역할 정보를 수정합니다.")
-  @PutMapping("childRelation")
-  public void updateChildRelation(@RequestBody ChildRelationUpdateRequest request) {
-    commandChildRelationService.update(request, getMemberId());
   }
 
   @Operation(summary = "돌봄관계 삭제", description = "아이 ID를 통해 돌봄관계를 삭제합니다.")

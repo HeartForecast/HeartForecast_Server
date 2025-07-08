@@ -6,10 +6,8 @@ import com.heartForecast.domain.child.service.CommandChildService;
 import com.heartForecast.domain.child.service.QueryChildService;
 import com.heartForecast.domain.childRelation.domain.ChildRelation;
 import com.heartForecast.domain.childRelation.presentation.dto.request.ChildRelationJoinRequest;
-import com.heartForecast.domain.childRelation.presentation.dto.request.ChildRelationUpdateRequest;
 import com.heartForecast.domain.childRelation.service.implementation.ChildRelationCreator;
 import com.heartForecast.domain.childRelation.service.implementation.ChildRelationDeleter;
-import com.heartForecast.domain.childRelation.service.implementation.ChildRelationUpdater;
 import com.heartForecast.domain.childRelation.service.implementation.ChildRelationValidator;
 import com.heartForecast.domain.user.domain.Users;
 import com.heartForecast.domain.user.service.QueryUserService;
@@ -23,14 +21,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class CommandChildRelationService {
 
   private final ChildRelationCreator childRelationCreator;
-  private final ChildRelationUpdater childRelationUpdater;
   private final ChildRelationDeleter childRelationDeleter;
   private final ChildRelationValidator childRelationValidator;
   private final CommandChildService commandChildService;
   private final QueryChildRelationService queryChildRelationService;
   private final QueryChildService queryChildService;
   private final QueryUserService queryUserService;
-
 
   public void create(ChildCreateRequest request, Long userId) {
     Child child = commandChildService.create(request);
@@ -39,7 +35,6 @@ public class CommandChildRelationService {
     ChildRelation childRelation = ChildRelation.builder()
         .child(child)
         .user(user)
-        .role(request.role())
         .build();
     childRelationCreator.create(childRelation);
   }
@@ -53,13 +48,8 @@ public class CommandChildRelationService {
     ChildRelation childRelation = ChildRelation.builder()
         .child(child)
         .user(user)
-        .role(request.role())
         .build();
     childRelationCreator.create(childRelation);
-  }
-
-  public void update(ChildRelationUpdateRequest request, Long userId) {
-    childRelationUpdater.update(queryChildRelationService.readOne(request.childId(), userId), request.role());
   }
 
   public void delete(Long childId, Long userId) {
