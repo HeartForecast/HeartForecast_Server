@@ -3,7 +3,6 @@ package com.heartForecast.domain.childRelation.domain;
 import com.heartForecast.domain.child.domain.Child;
 import com.heartForecast.domain.user.domain.Users;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,20 +28,12 @@ public class ChildRelation {
   @ManyToOne(fetch = FetchType.LAZY)
   private Child child;
 
-  @NotNull
-  private String role;
-
   @CreatedDate
   private LocalDateTime createdAt;
 
   @Builder
-  public ChildRelation(Users user, Child child, String role) {
+  public ChildRelation(Users user, Child child) {
     this.user = user;
     this.child = child;
-    this.role = role;
-  }
-
-  public void updateRole(String role) {
-    this.role = role;
   }
 }
