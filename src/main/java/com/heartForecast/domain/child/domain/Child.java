@@ -24,14 +24,12 @@ public class Child {
   private String username;
 
   @NotNull
-
   private LocalDate birthdate;
 
   @NotNull
   @Enumerated(EnumType.STRING)
   private Gender gender;
 
-  @NotNull
   private String healthInfo;
 
   @NotNull
