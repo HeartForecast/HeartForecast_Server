@@ -5,6 +5,7 @@ import com.heartForecast.domain.forecast.presentation.dto.request.ForecastUpdate
 import com.heartForecast.domain.forecast.presentation.dto.response.ForecastResponse;
 import com.heartForecast.domain.forecast.service.CommandForecastService;
 import com.heartForecast.domain.forecast.service.QueryForecastService;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -61,6 +62,7 @@ public class ForecastController {
     return queryForecastService.hasForecastRecord(forecastId, childId);
   }
 
+  @Hidden
   @Operation(summary = "예보 정보 수정", description = "기존 예보 정보를 수정합니다.")
   @PutMapping("/forecast")
   public void updateForecast(@RequestBody ForecastUpdateRequest request) {
