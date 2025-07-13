@@ -28,6 +28,15 @@ public class ForecastRecordController {
     commandForecastRecordService.create(request);
   }
 
+  @Operation(summary = "예보 기록 단일 조회", description = "예보 기록 ID로 특정 예보 기록을 조회합니다.")
+  @GetMapping("/forecastRecord/{forecast-record-id}")
+  public ForecastRecordResponse getForecastRecord(
+      @PathVariable("forecast-record-id") Long forecastRecordId) {
+    return ForecastRecordResponse.from(
+        queryForecastRecordService.readOne(forecastRecordId)
+    );
+  }
+
   @Operation(summary = "특정 날짜 예보 기록 조회", description = "아이 ID와 날짜로 해당 날짜의 예보 기록 목록을 조회합니다.")
   @GetMapping("/{child-id}/{date}")
   public List<ForecastRecordResponse> getForecastRecord(@PathVariable("child-id") Long childId, @PathVariable LocalDate date) {
