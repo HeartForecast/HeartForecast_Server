@@ -5,6 +5,7 @@ import com.heartForecast.domain.forecastRecord.presentation.dto.request.Forecast
 import com.heartForecast.domain.forecastRecord.presentation.dto.response.ForecastRecordResponse;
 import com.heartForecast.domain.forecastRecord.service.CommandForecastRecordService;
 import com.heartForecast.domain.forecastRecord.service.QueryForecastRecordService;
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -53,6 +54,7 @@ public class ForecastRecordController {
         .toList();
   }
 
+  @Hidden
   @Operation(summary = "예보 기록 수정", description = "기존 예보 기록을 수정합니다.")
   @PutMapping("/forecastRecord")
   public void updateForecastRecord(@RequestBody ForecastRecordUpdateRequest request) {
