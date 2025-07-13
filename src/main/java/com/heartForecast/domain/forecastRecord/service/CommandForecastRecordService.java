@@ -29,7 +29,7 @@ public class CommandForecastRecordService {
   private final QueryForecastService queryForecastService;
 
   public void create(ForecastRecordCreateRequest request) {
-    Forecast forecast = queryForecastService.readOne(request.forecastId(), request.childId());
+    Forecast forecast = queryForecastService.findOne(request.forecastId(), request.childId());
 
     if (!forecast.getDate().equals(request.date()) || forecast.getTimeZone().getOrder() != request.timeZone().getOrder()) throw new ForecastRecordInvalidDateTimeException();
 
@@ -50,7 +50,7 @@ public class CommandForecastRecordService {
   }
 
   public void update(ForecastRecordUpdateRequest request) {
-    ForecastRecord forecastRecord = queryForecastRecordService.readOne(request.forecastRecordId(), request.childId());
+    ForecastRecord forecastRecord = queryForecastRecordService.findOne(request.forecastRecordId(), request.childId());
     EmotionType emotionType = queryEmotionTypeService.readOne(request.emotionTypeId());
 
     queryForecastRecordService.overUpdateTimeExpire(request.forecastRecordId(), request.childId());
