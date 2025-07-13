@@ -29,9 +29,15 @@ public class ForecastController {
     commandForecastService.create(request);
   }
 
+  @Operation(summary = "예보 단일 조회", description = "예보 ID로 특정 예보 정보를 조회합니다.")
+  @GetMapping("/forecast/{forecast-id}")
+  public ForecastResponse getForecast(@PathVariable("forecast-id") Long forecastId) {
+    return ForecastResponse.from(queryForecastService.readOne(forecastId));
+  }
+
   @Operation(summary = "특정 날짜 예보 조회", description = "아이 ID와 날짜로 해당 날짜의 예보 목록을 조회합니다.")
   @GetMapping("/{child-id}/{date}")
-  public List<ForecastResponse> getForecast(
+  public List<ForecastResponse> getForecastByDate(
       @PathVariable("child-id") Long childId,
       @PathVariable LocalDate date) {
     return queryForecastService.findDate(date, childId).stream()
