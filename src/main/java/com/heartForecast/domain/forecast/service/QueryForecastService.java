@@ -22,8 +22,8 @@ public class QueryForecastService {
   private final ForecastValidator forecastValidator;
   private final QueryChildService queryChildService;
 
-  public Forecast readOne(Long id, Long childId) {
-    return forecastReader.findByChild(id, queryChildService.readOne(childId));
+  public Forecast readOne(Long id) {
+    return forecastReader.findById(id);
   }
 
   public List<Forecast> readAll(Long childId) {
@@ -34,6 +34,10 @@ public class QueryForecastService {
                 .thenComparing(f -> f.getTimeZone().getOrder())
         )
         .toList();
+  }
+
+  public Forecast findOne(Long id, Long childId) {
+    return forecastReader.findByChild(id, queryChildService.readOne(childId));
   }
 
   public List<Forecast> findDate(LocalDate date, Long childId) {
