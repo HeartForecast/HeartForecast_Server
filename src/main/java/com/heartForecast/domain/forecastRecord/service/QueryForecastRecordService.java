@@ -46,7 +46,7 @@ public class QueryForecastRecordService {
   }
 
   public void existsByForecast(Long forecastId, Long childId) {
-    forecastRecordValidator.existsByForecast(queryForecastService.readOne(forecastId, childId));
+    forecastRecordValidator.existsByForecast(queryForecastService.findOne(forecastId, childId));
   }
 
   public void overUpdateTimeExpire(Long forecastRecordId, Long childId) {
