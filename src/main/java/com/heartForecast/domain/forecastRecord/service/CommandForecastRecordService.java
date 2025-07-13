@@ -50,7 +50,7 @@ public class CommandForecastRecordService {
   }
 
   public void update(ForecastRecordUpdateRequest request) {
-    ForecastRecord forecastRecord = queryForecastRecordService.readOne(request.forecastRecordId(), request.childId());
+    ForecastRecord forecastRecord = queryForecastRecordService.findOne(request.forecastRecordId(), request.childId());
     EmotionType emotionType = queryEmotionTypeService.readOne(request.emotionTypeId());
 
     queryForecastRecordService.overUpdateTimeExpire(request.forecastRecordId(), request.childId());
