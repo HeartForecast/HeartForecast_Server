@@ -18,6 +18,11 @@ public class ForecastReader {
   private final ForecastRepository forecastRepository;
   private final ForecastRecordRepository forecastRecordRepository;
 
+  public Forecast findById(Long id) {
+    return forecastRepository.findById(id)
+        .orElseThrow(ForecastNotFoundException::new);
+  }
+
   public Forecast findByChild(Long id, Child child) {
     return forecastRepository.findByIdAndChild(id, child)
         .orElseThrow(ForecastNotFoundException::new);
