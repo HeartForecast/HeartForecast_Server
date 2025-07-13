@@ -43,7 +43,7 @@ public class CommandForecastService {
   }
 
   public void update(ForecastUpdateRequest request) {
-    Forecast forecast = queryForecastService.readOne(request.forecastId(), request.childId());
+    Forecast forecast = queryForecastService.findOne(request.forecastId(), request.childId());
     EmotionType emotionType = queryEmotionTypeService.readOne(request.emotionTypeId());
 
     queryForecastRecordService.existsByForecast(request.forecastId(), request.childId());
