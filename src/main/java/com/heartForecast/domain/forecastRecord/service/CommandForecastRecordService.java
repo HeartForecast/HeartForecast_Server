@@ -29,7 +29,7 @@ public class CommandForecastRecordService {
   private final QueryForecastService queryForecastService;
 
   public void create(ForecastRecordCreateRequest request) {
-    Forecast forecast = queryForecastService.readOne(request.forecastId(), request.childId());
+    Forecast forecast = queryForecastService.findOne(request.forecastId(), request.childId());
 
     if (!forecast.getDate().equals(request.date()) || forecast.getTimeZone().getOrder() != request.timeZone().getOrder()) throw new ForecastRecordInvalidDateTimeException();
 
