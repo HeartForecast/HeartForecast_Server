@@ -17,7 +17,7 @@ import java.util.List;
 @Tag(name = "예보 기록 API")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/forecastRecords")
+@RequestMapping("/api/forecastRecords")
 public class ForecastRecordController {
 
   private final CommandForecastRecordService commandForecastRecordService;

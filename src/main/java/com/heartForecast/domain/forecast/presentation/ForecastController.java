@@ -18,7 +18,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "예보 API")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/forecasts")
+@RequestMapping("/api/forecasts")
 public class ForecastController {
 
   private final CommandForecastService commandForecastService;

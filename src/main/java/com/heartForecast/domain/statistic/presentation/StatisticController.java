@@ -15,7 +15,7 @@ import java.util.List;
 @Tag(name = "감정 통계 API")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/statistics")
+@RequestMapping("/api/statistics")
 public class StatisticController {
 
   private final QueryStatisticService queryStatisticService;

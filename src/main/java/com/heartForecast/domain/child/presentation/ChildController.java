@@ -15,7 +15,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "아이 API")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/children")
+@RequestMapping("/api/children")
 public class ChildController {
 
   private final CommandChildService commandChildService;

@@ -17,6 +17,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api")
 public class AuthController {
 
     private final UserJoiner userJoiner;
