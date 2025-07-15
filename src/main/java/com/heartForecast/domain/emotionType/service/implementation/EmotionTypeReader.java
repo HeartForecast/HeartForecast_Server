@@ -6,6 +6,8 @@ import com.heartForecast.domain.emotionType.exception.EmotionTypeNotFoundExcepti
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class EmotionTypeReader {
@@ -15,5 +17,9 @@ public class EmotionTypeReader {
   public EmotionType findById(Long id) {
     return emotionTypeRepository.findById(id)
         .orElseThrow(EmotionTypeNotFoundException::new);
+  }
+
+  public List<EmotionType> findAll() {
+    return emotionTypeRepository.findAll();
   }
 }
