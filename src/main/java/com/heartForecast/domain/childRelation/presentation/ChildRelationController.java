@@ -19,7 +19,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "돌봄관계 API")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/childRelations")
+@RequestMapping("/api/childRelations")
 public class ChildRelationController {
 
   private final CommandChildRelationService commandChildRelationService;
