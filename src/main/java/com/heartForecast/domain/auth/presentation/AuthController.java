@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.Map;
 
 @Tag(name = "인증 API")
@@ -44,10 +44,7 @@ public class AuthController {
     @Operation(summary = "인증 상태 체크", description = "현재 요청자가 인증된 상태인지 체크합니다.")
     @GetMapping("/check")
     public ResponseEntity<Map<String, Object>> checkAuthStatus() {
-        log.warn("AuthController : /check 성공");
-        Map<String, Object> response = new HashMap<>();
-        response.put("success", true);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(Collections.singletonMap("success", true));
     }
 }
 
