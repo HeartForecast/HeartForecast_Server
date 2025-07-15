@@ -8,10 +8,14 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Tag(name = "인증 API")
 @Slf4j
@@ -39,9 +43,11 @@ public class AuthController {
 
     @Operation(summary = "인증 상태 체크", description = "현재 요청자가 인증된 상태인지 체크합니다.")
     @GetMapping("/check")
-    @ResponseStatus(HttpStatus.OK)
-    public void checkAuthStatus() {
+    public ResponseEntity<Map<String, Object>> checkAuthStatus() {
         log.warn("AuthController : /check 성공");
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", true);
+        return ResponseEntity.ok(response);
     }
 }
 
