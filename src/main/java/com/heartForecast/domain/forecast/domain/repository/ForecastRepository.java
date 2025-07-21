@@ -16,4 +16,5 @@ public interface ForecastRepository extends JpaRepository<Forecast, Long> {
   List<Forecast> findByChild(Child child);
   List<Forecast> findByDateAndChild(LocalDate date, Child child);
   boolean existsByChildAndDateAndTimeZone(Child child, LocalDate date, TimeZone timeZone);
+  void deleteAllByChild(Child child);
 }
