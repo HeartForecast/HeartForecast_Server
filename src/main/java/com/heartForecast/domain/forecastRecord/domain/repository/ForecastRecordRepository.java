@@ -19,6 +19,7 @@ public interface ForecastRecordRepository extends JpaRepository<ForecastRecord, 
   Optional<ForecastRecord> findByIdAndChild(Long id, Child child);
   List<ForecastRecord> findByChild(Child child);
   List<ForecastRecord> findByDateAndChild(LocalDate date, Child child);
+  void deleteAllByChild(Child child);
   boolean existsByForecast(Forecast forecast);
   @Query("SELECT new com.heartForecast.domain.statistic.presentation.dto.response.DateTempResponse(fr.date, AVG(fr.emotionType.temp)) " +
       "FROM ForecastRecord fr " +
