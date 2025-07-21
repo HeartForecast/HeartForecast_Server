@@ -8,6 +8,7 @@ import com.heartForecast.domain.forecast.domain.Forecast;
 import com.heartForecast.domain.forecast.presentation.dto.request.ForecastCreateRequest;
 import com.heartForecast.domain.forecast.presentation.dto.request.ForecastUpdateRequest;
 import com.heartForecast.domain.forecast.service.implementation.ForecastCreator;
+import com.heartForecast.domain.forecast.service.implementation.ForecastDeleter;
 import com.heartForecast.domain.forecast.service.implementation.ForecastUpdater;
 import com.heartForecast.domain.forecastRecord.service.QueryForecastRecordService;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,7 @@ public class CommandForecastService {
 
   private final ForecastCreator forecastCreator;
   private final ForecastUpdater forecastUpdater;
+  private final ForecastDeleter forecastDeleter;
   private final QueryForecastService queryForecastService;
   private final QueryForecastRecordService queryForecastRecordService;
   private final QueryChildService queryChildService;
@@ -49,5 +51,9 @@ public class CommandForecastService {
     queryForecastRecordService.existsByForecast(request.forecastId(), request.childId());
 
     forecastUpdater.update(forecast, emotionType, request.memo());
+  }
+
+  public void deleteAll(Long childId) {
+    forecastDeleter.deleteAllByChild(queryChildService.readOne(childId));
   }
 }
