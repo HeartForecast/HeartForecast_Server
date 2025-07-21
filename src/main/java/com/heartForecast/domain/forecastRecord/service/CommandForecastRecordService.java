@@ -11,6 +11,7 @@ import com.heartForecast.domain.forecastRecord.exception.ForecastRecordInvalidDa
 import com.heartForecast.domain.forecastRecord.presentation.dto.request.ForecastRecordCreateRequest;
 import com.heartForecast.domain.forecastRecord.presentation.dto.request.ForecastRecordUpdateRequest;
 import com.heartForecast.domain.forecastRecord.service.implementation.ForecastRecordCreator;
+import com.heartForecast.domain.forecastRecord.service.implementation.ForecastRecordDeleter;
 import com.heartForecast.domain.forecastRecord.service.implementation.ForecastRecordUpdater;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,7 @@ public class CommandForecastRecordService {
 
   private final ForecastRecordCreator forecastRecordCreator;
   private final ForecastRecordUpdater forecastRecordUpdater;
+  private final ForecastRecordDeleter forecastRecordDeleter;
   private final QueryForecastRecordService queryForecastRecordService;
   private final QueryChildService queryChildService;
   private final QueryEmotionTypeService queryEmotionTypeService;
@@ -56,5 +58,9 @@ public class CommandForecastRecordService {
     queryForecastRecordService.overUpdateTimeExpire(request.forecastRecordId(), request.childId());
 
     forecastRecordUpdater.update(forecastRecord, emotionType, request.memo());
+  }
+
+  public void deleteAll(Long childId) {
+    forecastRecordDeleter.deleteAllByChild(queryChildService.readOne(childId));
   }
 }
