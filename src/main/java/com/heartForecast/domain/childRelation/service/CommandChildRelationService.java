@@ -9,6 +9,8 @@ import com.heartForecast.domain.childRelation.presentation.dto.request.ChildRela
 import com.heartForecast.domain.childRelation.service.implementation.ChildRelationCreator;
 import com.heartForecast.domain.childRelation.service.implementation.ChildRelationDeleter;
 import com.heartForecast.domain.childRelation.service.implementation.ChildRelationValidator;
+import com.heartForecast.domain.forecast.service.CommandForecastService;
+import com.heartForecast.domain.forecastRecord.service.CommandForecastRecordService;
 import com.heartForecast.domain.user.domain.Users;
 import com.heartForecast.domain.user.service.QueryUserService;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +29,8 @@ public class CommandChildRelationService {
   private final QueryChildRelationService queryChildRelationService;
   private final QueryChildService queryChildService;
   private final QueryUserService queryUserService;
+  private final CommandForecastService commandForecastService;
+  private final CommandForecastRecordService commandForecastRecordService;
 
   public void create(ChildCreateRequest request, Long userId) {
     Child child = commandChildService.create(request);
@@ -55,7 +59,11 @@ public class CommandChildRelationService {
   public void delete(Long childId, Long userId) {
     childRelationDeleter.delete(queryChildRelationService.readOne(childId, userId));
 
-    if (!queryChildRelationService.existsRelation(childId)) commandChildService.delete(childId);
+    if (!queryChildRelationService.existsRelation(childId)) {
+      commandForecastRecordService.deleteAll(childId);
+      commandForecastService.deleteAll(childId);
+      commandChildService.delete(childId);
+    }
   }
 
   public void deleteAll(Long childId, Long userId) {
